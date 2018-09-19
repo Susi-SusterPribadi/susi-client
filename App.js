@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+<<<<<<< HEAD
 import { createSwitchNavigator, createStackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
@@ -54,10 +55,32 @@ const SwitchNav =  createSwitchNavigator(
 
 
 export default class App extends Component {
+=======
+import Camera from './src/components/Camera';
+
+export default class App extends Component {
+  state = {
+    imageUri: null
+  }
+
+  setImage = (image) => {
+    console.log('dari setImage ==>', image.uri)
+    this.setState({ imageUri: image.uri })
+  }
+
+>>>>>>> add component camera
   render() {
+    const { imageUri } = this.state
     return (
+<<<<<<< HEAD
       <SwitchNav/>
     );
+=======
+      <View>
+        <Camera getPicImage={this.setImage}/>
+      </View>
+    )
+>>>>>>> add component camera
   }
 }
 
