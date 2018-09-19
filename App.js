@@ -1,31 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import Camera from './src/components/Camera';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+export default class App extends Component {
+  state = {
+    imageUri: null
+  }
 
-type Props = {};
-export default class App extends Component<Props> {
+  setImage = (image) => {
+    console.log('dari setImage ==>', image.uri)
+    this.setState({ imageUri: image.uri })
+  }
+
   render() {
+    const { imageUri } = this.state
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      <View>
+        <Camera getPicImage={this.setImage}/>
       </View>
-    );
+    )
   }
 }
 
