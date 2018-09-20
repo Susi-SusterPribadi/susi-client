@@ -17,6 +17,7 @@ const drawer = DrawerNavigator({
     <View>
       <View style={styles.drawer}>
         <Image source={{uri: 'https://i.pinimg.com/564x/10/3c/09/103c097872200038dd538c8f7e56403e.jpg'}} style={styles.avatar}/>
+        <Text style={styles.username}>Mickey</Text>
       </View>
       <DrawerItems {...props} />
     </View>
@@ -72,6 +73,13 @@ const styles = StyleSheet.create({
     marginTop: '5%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    borderRadius: 30
+    borderRadius: 50
+  },
+  username: {
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 15,
+    fontSize: 17
   }
 });
