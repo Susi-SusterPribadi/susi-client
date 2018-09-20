@@ -1,49 +1,85 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import { createSwitchNavigator, createStackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
+import HomeScreen from './src/containers/Home'
+import SignInScreen from './src/containers/SignIn'
+import SettingScreen from './src/containers/Setting'
+import Prescription from './src/containers/Prescription'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const drawer = DrawerNavigator({
+  Home: {
+    screen: HomeScreen
+  },
+  Setting: SettingScreen,
+  Prescription: Prescription
+}, {
+  contentComponent: (props) => (
+    <View>
+      <View style={styles.drawer}>
+        <Image source={{uri: 'https://i.pinimg.com/564x/10/3c/09/103c097872200038dd538c8f7e56403e.jpg'}} style={styles.avatar}/>
+        <Text style={styles.username}>Mickey</Text>
+      </View>
+      <DrawerItems {...props} />
+    </View>
+  )
+})
 
-type Props = {};
-export default class App extends Component<Props> {
+// const AppStack = createStackNavigator({
+//   Home:{
+//     screen: drawer
+//   }
+// })
+
+const AuthStack = createStackNavigator(
+  { 
+    SignIn: SignInScreen 
+  }, 
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+);
+
+const SwitchNav =  createSwitchNavigator(
+  {
+    App: drawer,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'Auth'
+  }
+)
+
+
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <SwitchNav/>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  drawer: {
+    width: '100%',
+    height: 150,
+    backgroundColor: '#7BC342'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  avatar: {
+    width: '25%',
+    height: '50%',
+    marginTop: '5%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 50
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  username: {
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 15,
+    fontSize: 17
+  }
 });
