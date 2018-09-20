@@ -40,15 +40,13 @@ class SignUp extends Component {
             
             />
         </View>
-        
         <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} />
-        <Button block style={styles.button} onPress={this.props.move}>
+        <Button block style={styles.button} onPress={this.props.show}>
           <Text style={{ color: '#7BC342' }}>SUBMIT</Text>
         </Button>
         <TouchableOpacity onPress={() => this.props.show()}>
           <Text style={styles.move}>Already have an account ? Sign In Here</Text>
         </TouchableOpacity>
-
       </View>
     );
   }
