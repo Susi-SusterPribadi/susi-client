@@ -1,23 +1,41 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, View, Text, TextInput } from 'react-native';
 import { Container, Card, Button} from 'native-base';
+import SignInBox from '../components/Signinbox'
+import SignUpBox from '../components/Signupbox'
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      visible: true
+    };
   }
+
+  box = () => {
+    return this.state.visible ? <SignInBox move={this.moveToHome} show={this.showSignUp}/> : <SignUpBox  move={this.moveToHome} show={this.showSignIn}/>
+  }
+
+  showSignUp = () => {
+    this.setState({
+      visible: false
+    })
+  }
+
+  showSignIn = () => {
+    this.setState({
+      visible: true
+    })
+  }
+
+  moveToHome = () => {
+    this.props.navigation.navigate('App')
+  }
+
   render() {
     return (
       <Container style={styles.container}>
-        <Card style={styles.signinbox}>
-          <Text style={styles.title}>Sign In</Text>
-          <TextInput placeholder="Username" style={styles.inputbox}/>
-          <TextInput placeholder="Password" style={styles.inputbox}/>
-          <Button block style={styles.button}>
-            <Text style={{color: 'white'}}>SUBMIT</Text>
-          </Button>
-        </Card>
+        {this.box()}
       </Container>
     );
   }
@@ -30,16 +48,17 @@ const styles = StyleSheet.create({
   signinbox: {
     marginTop: 'auto',
     width: 350,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginBottom: 'auto',
     height: 350,
-    borderRadius: 3
+    borderWidth: 0,
+    borderColor: 'transparent'
   },
   inputbox: {
     width: '85%',
-    borderColor: 'black',
+    borderColor: 'white',
     borderWidth: 1 ,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -53,14 +72,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     marginTop: 30,
-    marginBottom: 10
+    marginBottom: 10,
+    color: 'white'
   },
   button: {
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '85%',
     marginTop: 50,
-    backgroundColor: '#7BC342'
+    backgroundColor: 'white'
   }
 })
 
