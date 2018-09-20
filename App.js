@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { createSwitchNavigator, createStackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
@@ -57,32 +58,45 @@ const SwitchNav =  createSwitchNavigator(
 export default class App extends Component {
 =======
 import Camera from './src/components/Camera';
+=======
+import CameraPicker from './src/components/CameraPicker';
+import { createStackNavigator } from 'react-navigation'
+
+const RootStack = createStackNavigator({
+  Camera: {
+    screen: CameraPicker
+  }
+})
+>>>>>>> Bug fixing camera
 
 export default class App extends Component {
   state = {
     imageUri: null
   }
 
+<<<<<<< HEAD
   setImage = (image) => {
     console.log('dari setImage ==>', image.uri)
     this.setState({ imageUri: image.uri })
   }
 
 >>>>>>> add component camera
+=======
+>>>>>>> Bug fixing camera
   render() {
-    const { imageUri } = this.state
     return (
 <<<<<<< HEAD
       <SwitchNav/>
     );
 =======
       <View>
-        <Camera getPicImage={this.setImage}/>
+        <CameraPicker/>
       </View>
     )
 >>>>>>> add component camera
   }
 }
+<<<<<<< HEAD
 
 const styles = StyleSheet.create({
   drawer: {
@@ -106,3 +120,5 @@ const styles = StyleSheet.create({
     fontSize: 17
   }
 });
+=======
+>>>>>>> Bug fixing camera
