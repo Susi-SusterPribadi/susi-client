@@ -1,49 +1,50 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput } from 'react-native';
-import { Container, Card, Button} from 'native-base';
-import SignInBox from '../components/Signinbox'
-import SignUpBox from '../components/Signupbox'
+import { Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button } from 'react-native';
+import { Container, Card} from 'native-base';
+import logo from "../../assets/img/logo.png"
+
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true
+      
     };
   }
 
-  box = () => {
-    return this.state.visible ? <SignInBox move={this.moveToHome} show={this.showSignUp}/> : <SignUpBox  move={this.moveToHome} show={this.showSignIn}/>
-  }
-
-  showSignUp = () => {
-    this.setState({
-      visible: false
-    })
-  }
-
-  showSignIn = () => {
-    this.setState({
-      visible: true
-    })
-  }
-
-  moveToHome = () => {
+  toHome = () => {
     this.props.navigation.navigate('App')
+  }
+
+  toSignup = () => {
+    this.props.navigation.navigate('Signup')
   }
 
   render() {
     return (
-      <Container style={styles.container}>
-        {this.box()}
-      </Container>
+      <View style={styles.container}>
+        <Image source={logo} style={styles.logo}/>
+        <View style={styles.signinbox}>
+          <Text style={styles.title}>Susi</Text>
+          <TextInput placeholder="Email" placeholderTextColor="white" style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
+          <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })}/>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('App')}>
+            <Text style={{color: '#7BC342', fontWeight: 'bold', textAlign: 'center'}}>SIGN IN</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup')}>
+            <Text style={styles.move}>Don't have an account ? Sign Up Here</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#7BC342'
+    flex: 1,
+    backgroundColor: '#15BE59',
+    justifyContent: 'center'
   },
   signinbox: {
     marginTop: 'auto',
@@ -70,17 +71,34 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 45,
     marginTop: 30,
     marginBottom: 10,
-    color: 'white'
+    color: 'white',
+    fontFamily: 'sacramento'
   },
   button: {
+    backgroundColor: '#fff',
+    color: '#15BE59',
+    marginTop: 30,
+    padding: 14,
+    width: '85%',
+    marginLeft: '9%',
+    borderRadius: 30
+  },
+  move: {
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight:'auto',
+    marginTop: 20,
+    fontSize: 15
+  },
+  logo: {
+    width: 120,
+    height: '20%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '85%',
-    marginTop: 50,
-    backgroundColor: 'white'
+    top: '17%'
   }
 })
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Container, Card, Button, DatePicker } from 'native-base';
 
 class SignUp extends Component {
@@ -42,7 +42,7 @@ class SignUp extends Component {
         </View>
         <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} />
         <Button block style={styles.button} onPress={this.props.show}>
-          <Text style={{ color: '#7BC342' }}>SUBMIT</Text>
+          <Text style={{ color: '#7BC342', fontWeight: 'bold' }}>SUBMIT</Text>
         </Button>
         <TouchableOpacity onPress={() => this.props.show()}>
           <Text style={styles.move}>Already have an account ? Sign In Here</Text>
@@ -81,17 +81,19 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 45,
     marginTop: 30,
     marginBottom: 10,
-    color: 'white'
+    color: 'white',
+    fontFamily: 'sacramento'
   },
   button: {
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '85%',
-    marginTop: 50,
-    backgroundColor: 'white'
+    marginTop: 30,
+    backgroundColor: 'white',
+    borderRadius: 30
   },
   move: {
     color: 'white',
