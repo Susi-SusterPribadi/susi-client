@@ -1,14 +1,34 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
-import { createSwitchNavigator, createStackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
 import SettingScreen from './src/containers/Setting'
 import Prescription from './src/containers/Prescription'
+import CameraPicker from './src/components/CameraPicker';
 
-const drawer = DrawerNavigator({
+const AuthStack = createStackNavigator(
+  { 
+    SignIn: SignInScreen 
+  }, 
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  },
+);
+
+const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen
+  },
+  Camera: CameraPicker
+})
+
+const AppDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: HomeStack
   },
   Setting: SettingScreen,
   Prescription: Prescription
@@ -24,27 +44,9 @@ const drawer = DrawerNavigator({
   )
 })
 
-// const AppStack = createStackNavigator({
-//   Home:{
-//     screen: drawer
-//   }
-// })
-
-const AuthStack = createStackNavigator(
-  { 
-    SignIn: SignInScreen 
-  }, 
-  {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
-  }
-);
-
 const SwitchNav =  createSwitchNavigator(
   {
-    App: drawer,
+    App: AppDrawerNavigator,
     Auth: AuthStack,
   },
   {
@@ -55,9 +57,7 @@ const SwitchNav =  createSwitchNavigator(
 
 export default class App extends Component {
   render() {
-    return (
-      <SwitchNav/>
-    );
+    return <SwitchNav/>
   }
 }
 

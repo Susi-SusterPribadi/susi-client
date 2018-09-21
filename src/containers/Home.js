@@ -50,8 +50,7 @@ class Home extends Component {
   }
 
   cam = () => {
-    console.log('masuk cam');
-    
+    this.props.navigation.navigate('Camera') 
   }
 
   render() {
