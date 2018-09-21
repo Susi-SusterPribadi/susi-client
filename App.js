@@ -57,7 +57,9 @@ const SwitchNav =  createSwitchNavigator(
 
 export default class App extends Component {
   render() {
-    return <SwitchNav/>
+    return (
+        <SwitchNav/>
+    );
   }
 }
 
