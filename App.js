@@ -1,16 +1,34 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { createSwitchNavigator, createStackNavigator, DrawerNavigator, DrawerItems } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
 import SettingScreen from './src/containers/Setting'
 import Prescription from './src/containers/Prescription'
+import CameraPicker from './src/components/CameraPicker';
 
-const drawer = DrawerNavigator({
+const AuthStack = createStackNavigator(
+  { 
+    SignIn: SignInScreen 
+  }, 
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  },
+);
+
+const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen
+  },
+  Camera: CameraPicker
+})
+
+const AppDrawerNavigator = createDrawerNavigator({
+  Home: {
+    screen: HomeStack
   },
   Setting: SettingScreen,
   Prescription: Prescription
@@ -26,27 +44,9 @@ const drawer = DrawerNavigator({
   )
 })
 
-// const AppStack = createStackNavigator({
-//   Home:{
-//     screen: drawer
-//   }
-// })
-
-const AuthStack = createStackNavigator(
-  { 
-    SignIn: SignInScreen 
-  }, 
-  {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
-  }
-);
-
 const SwitchNav =  createSwitchNavigator(
   {
-    App: drawer,
+    App: AppDrawerNavigator,
     Auth: AuthStack,
   },
   {
@@ -56,47 +56,10 @@ const SwitchNav =  createSwitchNavigator(
 
 
 export default class App extends Component {
-=======
-import Camera from './src/components/Camera';
-=======
-import CameraPicker from './src/components/CameraPicker';
-import { createStackNavigator } from 'react-navigation'
-
-const RootStack = createStackNavigator({
-  Camera: {
-    screen: CameraPicker
-  }
-})
->>>>>>> Bug fixing camera
-
-export default class App extends Component {
-  state = {
-    imageUri: null
-  }
-
-<<<<<<< HEAD
-  setImage = (image) => {
-    console.log('dari setImage ==>', image.uri)
-    this.setState({ imageUri: image.uri })
-  }
-
->>>>>>> add component camera
-=======
->>>>>>> Bug fixing camera
   render() {
-    return (
-<<<<<<< HEAD
-      <SwitchNav/>
-    );
-=======
-      <View>
-        <CameraPicker/>
-      </View>
-    )
->>>>>>> add component camera
+    return <SwitchNav/>
   }
 }
-<<<<<<< HEAD
 
 const styles = StyleSheet.create({
   drawer: {
@@ -120,5 +83,3 @@ const styles = StyleSheet.create({
     fontSize: 17
   }
 });
-=======
->>>>>>> Bug fixing camera

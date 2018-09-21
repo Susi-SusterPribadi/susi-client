@@ -12,6 +12,9 @@ const options = {
 }
 
 export default class CameraPicker extends Component {
+  static navigationOptions = {
+    title: 'Camera Susi'
+  }
   constructor(props) {
     super(props)
     this.state = {
@@ -67,21 +70,6 @@ export default class CameraPicker extends Component {
     const { avatarSource } = this.state
     return (
       <View>
-        <Header style={{backgroundColor: "#7fcb4b"}}>
-          <Left>
-            <Button transparent>
-              <Icon name='chevron-left' size={20} color="#FFF" />
-            </Button>
-          </Left>
-          <Body>
-            <Title style={{color: '#FFF'}}>Camera Bot</Title>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Text style={{fontWeight: 'bold'}}>Cancel</Text>
-            </Button>
-          </Right>
-        </Header>
         <View style={{marginLeft: 5, marginBottom: 5, marginRight: 5, marginTop: 5}}>
         {
           avatarSource &&
