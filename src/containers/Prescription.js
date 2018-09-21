@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
+import Schedule from '../components/schedule'
 
 class Prescription extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      schedule: '',
+      visible: false
+    };
   }
+
+  openModal = () => {
+    this.setState({
+      visible: true
+    })
+  }
+
+  closeModal = () => {
+    this.setState({
+      visible: false
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -14,12 +31,13 @@ class Prescription extends Component {
           <Icon name="menu" size={25} color="black" />
         </TouchableOpacity>
         <Text style={styles.title}>Prescription</Text>
+        <Schedule data={this.state.schedule} close={this.closeModal} visible={this.state.visible}/>
         <View style={styles.medicinebox}>
           <View style={styles.medicine}>
             <Text style={styles.medname}>Dexamethason</Text>
             <Text style={styles.meddetail}>Stock: 10</Text>
             <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={this.openModal}>
               <Text style={styles.schedule}>Schedule</Text>
             </TouchableOpacity>
           </View>

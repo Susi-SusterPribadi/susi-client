@@ -6,8 +6,14 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
   "dependencies": {
     "axios": "^0.18.0",
+    "dialogflow": "^0.6.0",
     "native-base": "^2.8.0",
     "react": "16.5.0",
     "react-native": "0.57.0",
