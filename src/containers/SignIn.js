@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button } from 'react-native';
+import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, Dimensions } from 'react-native';
 import { Container, Card} from 'native-base';
 import logo from "../../assets/img/logo.png"
+import axios from 'axios'
+import { baseURL } from '../config' 
 
+const { width, height } = Dimensions.get('window');
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      email: '',
+      password: ''
     };
   }
 
@@ -20,15 +24,25 @@ class SignIn extends Component {
     this.props.navigation.navigate('Signup')
   }
 
+  signin = () => {
+    // console.log('ini email', this.state.email);
+    // console.log('ini email', this.state.password);
+
+    this.props.navigation.navigate('Signup')
+  }
+
   render() {
     return (
+      <ScrollView>
       <View style={styles.container}>
-        <Image source={logo} style={styles.logo}/>
+        <View style={styles.imagePlace}>
+          <Image source={logo} style={styles.logo} />
+        </View>
         <View style={styles.signinbox}>
           <Text style={styles.title}>Susi</Text>
-          <TextInput placeholder="Email" placeholderTextColor="white" style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
-          <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })}/>
-          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('App')}>
+          <TextInput placeholder="Email" keyboardType={'email-address'} placeholderTextColor="white" style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
+          <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })} secureTextEntry={true}/>
+          <TouchableOpacity style={styles.button} onPress={() => this.signin()}>
             <Text style={{color: '#7BC342', fontWeight: 'bold', textAlign: 'center'}}>SIGN IN</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup')}>
@@ -36,6 +50,7 @@ class SignIn extends Component {
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     );
   }
 }
@@ -44,18 +59,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#15BE59',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: height
+  },
+  imagePlace: {
+    flex: -1,
+    height: height * 0.35
   },
   signinbox: {
-    marginTop: 'auto',
+    flex: 1,
     width: 350,
     backgroundColor: 'transparent',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginBottom: 'auto',
-    height: 350,
     borderWidth: 0,
-    borderColor: 'transparent'
+    borderColor: 'transparent',
   },
   inputbox: {
     width: '85%',
@@ -68,12 +86,11 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: 0,
     fontSize: 17,
+    color: 'white'
   },
   title: {
     textAlign: 'center',
     fontSize: 45,
-    marginTop: 30,
-    marginBottom: 10,
     color: 'white',
     fontFamily: 'sacramento'
   },
@@ -95,10 +112,10 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 120,
-    height: '20%',
+    height: height * 0.2,
     marginLeft: 'auto',
     marginRight: 'auto',
-    top: '17%'
+    marginTop: height * 0.15
   }
 })
 

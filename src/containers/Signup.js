@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { Container, Card, Button, DatePicker } from 'native-base';
 import logo from "../../assets/img/logo.png"
+import axios from 'axios'
+import { baseURL } from '../config'
 
+const { width, height } = Dimensions.get('window');
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: ''
+      date: '',
+      name: '',
+      email: '',
+      password: ''
     };
   }
 
   setDate = (newDate) => {
-    console.log('ini new date', newDate);
-    console.log('typenya', typeof(newDate));
-    
+
     this.setState({ date: newDate });
   }
 
@@ -23,13 +27,39 @@ class SignIn extends Component {
     this.props.navigation.navigate('Signin')
   }
 
+  signup = () =>  {
+    console.log('ini date', this.state.date)
+    console.log('ini email', this.state.email)
+    console.log('ini name', this.state.name)
+    console.log('ini password', this.state.password)
+
+    axios.post(baseURL + 'users', {
+      name: this.state.name,
+      email: this.state.email,
+      birthdate: this.state.date,
+      password: this.state.password
+    })
+    .then(result => {
+      this.props.navigation.navigate('Signin')
+    })
+    .catch(err => {
+      console.log('====================================');
+      console.log(err.response);
+      console.log('====================================');
+    })
+  }
+
   render() {
     return (
+      <ScrollView>
       <View style={styles.container}>
-        <Image source={logo} style={styles.logo} />
+        <View style={styles.imagePlace}>
+          <Image source={logo} style={styles.logo} />
+        </View>
         <View style={styles.signinbox}>
           <Text style={styles.title}>Sign Up</Text>
-          <TextInput placeholder="Email" placeholderTextColor="white" style={styles.inputbox} />
+          <TextInput placeholder="Name" placeholderTextColor="white" style={styles.inputbox} onChangeText={(name) => this.setState({ name })}/>
+          <TextInput placeholder="Email" placeholderTextColor="white" keyboardType={'email-address'} style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
           <View style={styles.birthdate}>
             <DatePicker
               defaultDate={new Date()}
@@ -46,15 +76,16 @@ class SignIn extends Component {
               onDateChange={this.setDate}
             />
           </View>
-          <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} />
-          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Signin')}>
-            <Text style={{color: '#7BC342', fontWeight: 'bold', textAlign: 'center'}}>SIGN UP</Text>
+          <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })} secureTextEntry={true}/>
+          <TouchableOpacity style={styles.button} onPress={() => this.signup()}>
+            <Text style={{color: '#15BE59', fontWeight: 'bold', textAlign: 'center'}}>SIGN UP</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Signin')}>
             <Text style={styles.move}>Already have an account ? Sign In Here</Text>
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     );
   }
 }
@@ -63,18 +94,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#15BE59',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: height
+  },
+  imagePlace: {
+    flex: -1,
+    height: height * 0.25,
   },
   signinbox: {
-    marginTop: 'auto',
+    flex: 1,
     width: 350,
     backgroundColor: 'transparent',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginBottom: 'auto',
-    height: 350,
     borderWidth: 0,
-    borderColor: 'transparent'
+    borderColor: 'transparent',
   },
   inputbox: {
     width: '85%',
@@ -82,17 +116,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 20,
+    marginTop: 15,
     borderTopWidth: 0,
     borderLeftWidth: 0,
     borderRightWidth: 0,
     fontSize: 17,
+    color: 'white'
   },
   title: {
     textAlign: 'center',
     fontSize: 45,
-    marginTop: 30,
-    marginBottom: 10,
     color: 'white',
     fontFamily: 'sacramento'
   },
@@ -125,10 +158,10 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 120,
-    height: '20%',
+    height: height * 0.2,
     marginLeft: 'auto',
     marginRight: 'auto',
-    top: '17%'
+    marginTop: height * 0.05
   }
 })
 
