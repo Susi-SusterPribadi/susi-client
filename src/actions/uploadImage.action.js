@@ -2,7 +2,6 @@ import axios from 'axios'
 
 export default function uploadImage(formData) {
   return (dispatch) => {
-    console.log('formData dari action uploadImage ==>',formData)
     dispatch({ type: 'UPLOAD_IMAGE_REQUEST' })
     axios({
       method: 'POST',
