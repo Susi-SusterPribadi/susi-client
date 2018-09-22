@@ -53,7 +53,7 @@ export default class CameraPicker extends Component {
     let formData = new FormData()
     let type = this.state.type
     formData.append('image', { uri: this.state.uri, name: this.state.filename, type })
-
+    
     axios({
       method: 'POST',
       url: 'http://susi-api.arisupriatna.com/aws/uploads3',
@@ -65,11 +65,14 @@ export default class CameraPicker extends Component {
       .then(({data}) => {
         Alert.alert(
           'Susi says',
-          'Upload image success'
+          'Upload image success',
+          [
+            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+          ]
         )
-        console.log('hasil upload ==>', data.link)
+        console.log('hasil upload ==>', data)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log('Error from uploadImage ==>', err))
   }
 
   render() {
