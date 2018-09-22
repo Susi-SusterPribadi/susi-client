@@ -67,6 +67,7 @@ export default class CameraPicker extends Component {
           'Susi says',
           'Upload image success',
           [
+            {text: 'Cancel', onPress: () => this.props.navigation.navigate('Camera')},
             {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
           ]
         )
