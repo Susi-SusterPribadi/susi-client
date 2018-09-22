@@ -4,6 +4,22 @@ import { Text, Button } from 'native-base'
 import ImagePicker from 'react-native-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
+import uploadImage from '../actions/uploadImage.action'
+import { connect } from 'react-redux'
+
+const mapStateToProps = ({ uploadImage }) => {
+  return {
+    dataUpload: uploadImage
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    uploadingImage: (formData) => {
+      dispatch(uploadImage(formData))
+    }
+  }
+}
 
 const options = {
   title: 'Options',
@@ -11,7 +27,7 @@ const options = {
   chooseFromLibraryButtonTitle: 'Choose image from library',
 }
 
-export default class CameraPicker extends Component {
+class CameraPicker extends Component {
   static navigationOptions = {
     title: 'Camera Susi'
   }
@@ -53,26 +69,27 @@ export default class CameraPicker extends Component {
     let formData = new FormData()
     let type = this.state.type
     formData.append('image', { uri: this.state.uri, name: this.state.filename, type })
+    this.props.uploadingImage(formData)
     
-    axios({
-      method: 'POST',
-      url: 'http://susi-api.arisupriatna.com/aws/uploads3',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: formData
-    })
-      .then(({data}) => {
-        Alert.alert(
-          'Susi says',
-          'Upload image success',
-          [
-            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-          ]
-        )
-        console.log('hasil upload ==>', data)
-      })
-      .catch((err) => console.log('Error from uploadImage ==>', err))
+    // axios({
+    //   method: 'POST',
+    //   url: 'http://susi-api.arisupriatna.com/aws/uploads3',
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    //   data: formData
+    // })
+    //   .then(({data}) => {
+    //     Alert.alert(
+    //       'Susi says',
+    //       'Upload image success',
+    //       [
+    //         {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+    //       ]
+    //     )
+    //     console.log('hasil upload ==>', data)
+    //   })
+    //   .catch((err) => console.log('Error from uploadImage ==>', err))
   }
 
   render() {
@@ -108,3 +125,5 @@ export default class CameraPicker extends Component {
     )
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CameraPicker)
