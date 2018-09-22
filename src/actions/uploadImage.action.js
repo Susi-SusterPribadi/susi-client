@@ -13,16 +13,11 @@ export default function uploadImage(formData) {
       data: formData
     })
       .then(({data}) => {
-        Alert.alert(
-          'Susi says',
-          'Upload image success',
-          [
-            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-          ]
-        )
-        
+        dispatch({ type: 'UPLOAD_IMAGE_SUCCESS', payload: data })
         console.log('hasil upload ==>', data)
       })
-      .catch((err) => console.log('Error from uploadImage ==>', err))
+      .catch((err) => {
+        dispatch({ type: 'UPLOAD_IMAGE_FAILED', payload: err.message })
+      })
   }
 }
