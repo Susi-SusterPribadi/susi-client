@@ -1,60 +1,102 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, View, Text, TextInput } from 'react-native';
-import { Container, Card, Button} from 'native-base';
-import SignInBox from '../components/Signinbox'
-import SignUpBox from '../components/Signupbox'
+import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, Dimensions, AsyncStorage } from 'react-native';
+import { Container, Card} from 'native-base';
+import logo from "../../assets/img/logo.png"
+import axios from 'axios'
+import { baseURL } from '../config' 
+
+const { width, height } = Dimensions.get('window');
 
 class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true
+      email: '',
+      password: '',
+      eror: ''
     };
   }
 
-  box = () => {
-    return this.state.visible ? <SignInBox move={this.moveToHome} show={this.showSignUp}/> : <SignUpBox  move={this.moveToHome} show={this.showSignIn}/>
-  }
-
-  showSignUp = () => {
-    this.setState({
-      visible: false
-    })
-  }
-
-  showSignIn = () => {
-    this.setState({
-      visible: true
-    })
-  }
-
-  moveToHome = () => {
+  toHome = () => {
     this.props.navigation.navigate('App')
+  }
+
+  toSignup = () => {
+    this.props.navigation.navigate('App')
+  }
+
+  signin = () => {
+    console.log('ini email', this.state.email);
+    console.log('ini email', this.state.password);
+
+    axios.post(baseURL+ 'auth', {
+      email: this.state.email,
+      password: this.state.password
+    })
+    .then(result => {
+      console.log(result);
+      AsyncStorage.setItem('authorization', result.data.authorization)
+      AsyncStorage.setItem('email', result.data.email)
+      AsyncStorage.setItem('id', result.data.id)
+      AsyncStorage.setItem('name', result.data.name)
+      this.setState({
+        email: '',
+        password: ''
+      })
+      this.toHome()
+    })
+    .catch(err => {
+      console.log(err.response.data.msg);
+      this.setState({
+        eror: err.response.data.msg
+      })
+    })
   }
 
   render() {
     return (
-      <Container style={styles.container}>
-        {this.box()}
-      </Container>
+      <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.imagePlace}>
+          <Image source={logo} style={styles.logo} />
+        </View>
+        <View style={styles.signinbox}>
+          <Text style={styles.title}>Susi</Text>
+          <Text style={styles.eror}>{this.state.eror}</Text>
+          <TextInput placeholder="Email" keyboardType={'email-address'} placeholderTextColor="white" style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
+          <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })} secureTextEntry={true}/>
+          <TouchableOpacity style={styles.button} onPress={() => this.signin()}>
+            <Text style={{color: '#7BC342', fontWeight: 'bold', textAlign: 'center'}}>SIGN IN</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup')}>
+            <Text style={styles.move}>Don't have an account ? Sign Up Here</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#7BC342'
+    flex: 1,
+    backgroundColor: '#15BE59',
+    justifyContent: 'center',
+    height: height
+  },
+  imagePlace: {
+    flex: -1,
+    height: height * 0.35
   },
   signinbox: {
-    marginTop: 'auto',
+    flex: 1,
     width: 350,
     backgroundColor: 'transparent',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginBottom: 'auto',
-    height: 350,
     borderWidth: 0,
-    borderColor: 'transparent'
+    borderColor: 'transparent',
   },
   inputbox: {
     width: '85%',
@@ -67,20 +109,41 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: 0,
     fontSize: 17,
+    color: 'white'
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
-    marginTop: 30,
-    marginBottom: 10,
-    color: 'white'
+    fontSize: 45,
+    color: 'white',
+    fontFamily: 'sacramento'
   },
   button: {
+    backgroundColor: '#fff',
+    color: '#15BE59',
+    marginTop: 30,
+    padding: 14,
+    width: '85%',
+    marginLeft: '9%',
+    borderRadius: 30
+  },
+  move: {
+    color: 'white',
+    marginLeft: 'auto',
+    marginRight:'auto',
+    marginTop: 20,
+    fontSize: 15
+  },
+  logo: {
+    width: 120,
+    height: height * 0.2,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '85%',
-    marginTop: 50,
-    backgroundColor: 'white'
+    marginTop: height * 0.15
+  }, 
+  eror: {
+    color: '#F44336',
+    textAlign:'center',
+    fontSize: width * 0.04
   }
 })
 

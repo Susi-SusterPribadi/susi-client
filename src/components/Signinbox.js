@@ -14,14 +14,14 @@ class SignIn extends Component {
   render() {
     return (
       <View style={styles.signinbox}>
-          <Text style={styles.title}>Sign In</Text>
+          <Text style={styles.title}>Susi</Text>
           <TextInput placeholder="Email" placeholderTextColor="white" style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
           <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })}/>
           <Button block style={styles.button} onPress={this.props.move}>
-            <Text style={{color: '#7BC342'}}>SUBMIT</Text>
+            <Text style={{color: '#7BC342', fontWeight: 'bold'}}>SIGN IN</Text>
           </Button>
           <TouchableOpacity onPress={() => this.props.show()}>
-          <Text style={styles.move}>Already have an account ? Sign Up Here</Text>
+            <Text style={styles.move}>Already have an account ? Sign Up Here</Text>
           </TouchableOpacity>
         </View>
     );
@@ -57,17 +57,19 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 45,
     marginTop: 30,
     marginBottom: 10,
-    color: 'white'
+    color: 'white',
+    fontFamily: 'sacramento'
   },
   button: {
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '85%',
     marginTop: 50,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: 30
   },
   move: {
     color: 'white',

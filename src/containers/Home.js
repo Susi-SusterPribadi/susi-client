@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Dimensions } from 'react-native';
 import gift, { GiftedChat } from "react-native-gifted-chat"
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
+
 
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       messages: [
         {
           _id: Math.round(Math.random() * 1000000),
@@ -35,7 +36,7 @@ class Home extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
   }
 
   onSend(messages = []) {
@@ -46,29 +47,23 @@ class Home extends Component {
 
   try = () => {
     console.log('masuk long press');
-    
+
   }
 
   cam = () => {
-    this.props.navigation.navigate('Camera') 
+    this.props.navigation.navigate('Camera')
   }
 
   render() {
     return (
       <React.Fragment>
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer} style={styles.menu}>
-          <Icon name="menu" size={25} color="black"/>
-        </TouchableOpacity>
-        <GiftedChat 
-        messages={this.state.messages} 
-        onSend={messages => this.onSend(messages)}
-        onLongPress={this.try}
-        user={{
-          _id: 1,
-        }}/>
-        <TouchableOpacity onPress={this.cam} style={styles.cam}>
-          <Icon name="camera" size={30} color="black"/>
-        </TouchableOpacity>
+        <GiftedChat
+          messages={this.state.messages}
+          onSend={messages => this.onSend(messages)}
+          onLongPress={this.try}
+          user={{
+            _id: 1,
+          }} />
       </React.Fragment>
     );
   }
@@ -77,13 +72,18 @@ class Home extends Component {
 const styles = StyleSheet.create({
   cam: {
     position: 'absolute',
-    top: '94%',
-    left: '90%'
+    top: '87%',
+    left: '90%',
+    backgroundColor: 'white',
+    height: 80,
+    width: 50
   },
-  menu: {
-    top: '2%',
-    left: '3%'
-  }
+  camera: {
+    padding: 7
+  },
+  cambox: {
+    backgroundColor: 'blue',
+    marginTop: '50%'  }
 })
 
 export default Home;
