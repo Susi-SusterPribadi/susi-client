@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems, NavigationActions } from 'react-navigation';
 import { Provider } from 'react-redux'
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
 import SettingScreen from './src/containers/Setting'
 import Prescription from './src/containers/Prescription'
-import CameraPicker from './src/components/CameraPicker'
+import CameraPicker from './src/components/CameraPicker';
 import SignUpScreen from './src/containers/Signup'
-import Icon from 'react-native-vector-icons/SimpleLineIcons'
+import SplashScreen from './src/containers/Splash'
+import SignoutScreen from './src/containers/Signout'
 import store from './src/store/index'
-
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
 const Opendrawer = (props) => {
   return (
@@ -21,14 +22,14 @@ const Opendrawer = (props) => {
     </View>
   )
 }
-
-const CameraButton = (props) => {
+ const CameraButton = (props) => {
   return (
     <TouchableOpacity style={styles.cam} onPress={() => { props.navigate.navigate('Camera')}}>
         <Icon name="camera" size={30} color="white" />
     </TouchableOpacity>
   )
 }
+
 
 const AuthStack = createStackNavigator(
   {
@@ -70,7 +71,8 @@ const AppDrawerNavigator = createDrawerNavigator({
     screen: HomeStack
   },
   Setting: SettingScreen,
-  Prescription: Prescription
+  Prescription: Prescription,
+  Logout: SignoutScreen
 }, {
     contentComponent: (props) => (
       <View>
@@ -85,11 +87,12 @@ const AppDrawerNavigator = createDrawerNavigator({
 
 const SwitchNav = createSwitchNavigator(
   {
+    Splash: SplashScreen,
     App: AppDrawerNavigator,
     Auth: AuthStack,
   },
   {
-    initialRouteName: 'Auth'
+    initialRouteName: 'Splash'
   }
 )
 
@@ -138,5 +141,12 @@ const styles = StyleSheet.create({
   },
   cam: {
     marginRight: 15
+  },
+  logoutbox: {
+    marginLeft: '6%'
+  },
+  logout: {
+    color: 'black',
+    fontWeight: 'bold'
   }
 });
