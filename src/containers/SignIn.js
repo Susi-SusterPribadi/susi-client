@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, Dimensions } from 'react-native';
+import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, Dimensions, AsyncStorage } from 'react-native';
 import { Container, Card} from 'native-base';
 import logo from "../../assets/img/logo.png"
 import axios from 'axios'
@@ -12,7 +12,8 @@ class SignIn extends Component {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      eror: ''
     };
   }
 
@@ -21,14 +22,31 @@ class SignIn extends Component {
   }
 
   toSignup = () => {
-    this.props.navigation.navigate('Signup')
+    this.props.navigation.navigate('App')
   }
 
   signin = () => {
-    // console.log('ini email', this.state.email);
-    // console.log('ini email', this.state.password);
+    console.log('ini email', this.state.email);
+    console.log('ini email', this.state.password);
 
-    this.props.navigation.navigate('Signup')
+    axios.post(baseURL+ 'auth', {
+      email: this.state.email,
+      password: this.state.password
+    })
+    .then(result => {
+      console.log(result);
+      AsyncStorage.setItem('authorization', result.data.authorization)
+      AsyncStorage.setItem('email', result.data.email)
+      AsyncStorage.setItem('id', result.data.id)
+      AsyncStorage.setItem('name', result.data.name)
+      this.toHome()
+    })
+    .catch(err => {
+      console.log(err.response.data.msg);
+      this.setState({
+        eror: err.response.data.msg
+      })
+    })
   }
 
   render() {
@@ -40,6 +58,7 @@ class SignIn extends Component {
         </View>
         <View style={styles.signinbox}>
           <Text style={styles.title}>Susi</Text>
+          <Text style={styles.eror}>{this.state.eror}</Text>
           <TextInput placeholder="Email" keyboardType={'email-address'} placeholderTextColor="white" style={styles.inputbox} onChangeText={(email) => this.setState({ email })}/>
           <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(password) => this.setState({ password })} secureTextEntry={true}/>
           <TouchableOpacity style={styles.button} onPress={() => this.signin()}>
@@ -116,6 +135,11 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: height * 0.15
+  }, 
+  eror: {
+    color: '#F44336',
+    textAlign:'center',
+    fontSize: width * 0.04
   }
 })
 
