@@ -6,10 +6,34 @@ import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
 import SettingScreen from './src/containers/Setting'
 import Prescription from './src/containers/Prescription'
+<<<<<<< c54e8c4e15204226336cc031c759104b1b698395
 import CameraPicker from './src/components/CameraPicker'
 import SignUpScreen from './src/containers/Signup'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
+=======
+import CameraPicker from './src/components/CameraPicker';
+import SignUpScreen from './src/containers/Signup'
+import SplashScreen from './src/containers/Splash'
+>>>>>>> splash done
 import store from './src/store/index'
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
+
+const Opendrawer = (props) => {
+  return (
+    <View >
+      <TouchableOpacity style={styles.menu} onPress={() => { props.navigate.toggleDrawer() }}>
+        <Icon name="menu" size={25} color="white" />
+      </TouchableOpacity>
+    </View>
+  )
+}
+ const CameraButton = (props) => {
+  return (
+    <TouchableOpacity style={styles.cam} onPress={() => { props.navigate.navigate('Camera')}}>
+        <Icon name="camera" size={30} color="white" />
+    </TouchableOpacity>
+  )
+}
 
 
 const Opendrawer = (props) => {
@@ -85,11 +109,12 @@ const AppDrawerNavigator = createDrawerNavigator({
 
 const SwitchNav = createSwitchNavigator(
   {
+    Splash: SplashScreen,
     App: AppDrawerNavigator,
     Auth: AuthStack,
   },
   {
-    initialRouteName: 'Auth'
+    initialRouteName: 'Splash'
   }
 )
 
