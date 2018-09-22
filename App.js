@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
+import { Provider } from 'react-redux'
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
 import SettingScreen from './src/containers/Setting'
 import Prescription from './src/containers/Prescription'
 import CameraPicker from './src/components/CameraPicker';
+import store from './src/store/index'
 
 const AuthStack = createStackNavigator(
   { 
@@ -57,7 +59,11 @@ const SwitchNav =  createSwitchNavigator(
 
 export default class App extends Component {
   render() {
-    return <SwitchNav/>
+    return (
+      <Provider store={store}>
+        <SwitchNav/>
+      </Provider>
+    )
   }
 }
 
