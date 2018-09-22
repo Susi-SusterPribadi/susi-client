@@ -71,26 +71,25 @@ class CameraPicker extends Component {
     formData.append('image', { uri: this.state.uri, name: this.state.filename, type })
     this.props.uploadingImage(formData)
     
-    axios({
-      method: 'POST',
-      url: 'http://susi-api.arisupriatna.com/aws/uploads3',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: formData
-    })
-      .then(({data}) => {
-        Alert.alert(
-          'Susi says',
-          'Upload image success',
-          [
-            {text: 'Cancel', onPress: () => this.props.navigation.navigate('Camera')},
-            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-          ]
-        )
-        console.log('hasil upload ==>', data)
-      })
-      .catch((err) => console.log('Error from uploadImage ==>', err))
+    // axios({
+    //   method: 'POST',
+    //   url: 'http://susi-api.arisupriatna.com/aws/uploads3',
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    //   data: formData
+    // })
+    //   .then(({data}) => {
+    //     Alert.alert(
+    //       'Susi says',
+    //       'Upload image success',
+    //       [
+    //         {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+    //       ]
+    //     )
+    //     console.log('hasil upload ==>', data)
+    //   })
+    //   .catch((err) => console.log('Error from uploadImage ==>', err))
   }
 
   render() {
