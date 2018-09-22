@@ -61,11 +61,7 @@ const HomeStack = createStackNavigator({
       }
     })
   }
-},
-  // {
-
-  // }
-)
+})
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {

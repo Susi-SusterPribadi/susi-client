@@ -43,16 +43,18 @@ class SignIn extends Component {
       password: this.state.password
     })
       .then(result => {
+        this.setState({
+          name: '',
+          email: '',
+          date: '',
+          password: ''
+        })
         this.props.navigation.navigate('Signin')
       })
       .catch(err => {
         console.log('====================================');
         console.log(err.response);
         console.log('====================================');
-
-        this.setState({
-
-        })
       })
   }
 

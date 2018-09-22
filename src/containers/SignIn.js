@@ -39,6 +39,10 @@ class SignIn extends Component {
       AsyncStorage.setItem('email', result.data.email)
       AsyncStorage.setItem('id', result.data.id)
       AsyncStorage.setItem('name', result.data.name)
+      this.setState({
+        email: '',
+        password: ''
+      })
       this.toHome()
     })
     .catch(err => {
