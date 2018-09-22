@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { Alert } from 'react-native'
 
 export default function uploadImage(formData) {
   return (dispatch) => {
+    console.log('formData dari action uploadImage ==>',formData)
     dispatch({ type: 'UPLOAD_IMAGE_REQUEST' })
     axios({
       method: 'POST',

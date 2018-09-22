@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, Store } from 'redux'
 import thunk from 'redux-thunk'
-import uploadImage from '../actions/uploadImage.action'
+import uploadImage from '../reducers/uploadImage.reducer'
 
 const rootReducers = combineReducers({
   uploadImage
