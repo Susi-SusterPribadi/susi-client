@@ -60,9 +60,7 @@ class SignIn extends Component {
 
   validate = (text, type) => {
     
-    
     if (type === 'name') {
-      console.log('masuk validate');
       if (text.length == 0) {
         this.setState({
           errorname: 'Name is required',
@@ -97,6 +95,7 @@ class SignIn extends Component {
       }
 
     } else if(type === 'password'){
+      
       let numtest =  /.*[0-9]/
       if(text.length == 0){
         this.setState({
@@ -117,7 +116,7 @@ class SignIn extends Component {
 
       } else if(  text.length < 6 && !numtest.test(text)) {
         this.setState({
-          erropass: 'Password must be more than 6 characters & contain at least 1 number',
+          erropass: 'Password length must 6 & contain number',
           password: text
         })
       } 
@@ -154,7 +153,7 @@ class SignIn extends Component {
               />
             </View>
             <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} onChangeText={(text) => this.validate(text, 'password')} secureTextEntry={true} />
-            <Text style={styles.error}>{this.state.errorpass}</Text>
+            <Text style={styles.error}>{this.state.erropass}</Text>
             <TouchableOpacity style={styles.button} onPress={() => this.signup()}>
               <Text style={{ color: '#15BE59', fontWeight: 'bold', textAlign: 'center' }}>SIGN UP</Text>
             </TouchableOpacity>
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#fff',
     color: '#15BE59',
-    marginTop: 20,
+    marginTop: 30,
     padding: 14,
     width: '85%',
     marginLeft: '9%',

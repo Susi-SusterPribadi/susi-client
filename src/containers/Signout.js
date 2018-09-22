@@ -4,25 +4,30 @@ import brand from '../../assets/img/splash.png'
 
 const { width, height } = Dimensions.get('window');
 
-class Splash extends Component {
+class Signout extends Component {
   constructor(props) {
     super(props);
     
   }
 
   componentDidMount(){
-    setTimeout(this.checking, 500);
+    this.logout()
   }
 
-  checking = () => {
-    this._bootstrapAsync()
+  logout = async () => {
+    try {
+      await AsyncStorage.removeItem('authorization')
+      await AsyncStorage.removeItem('email')
+      await AsyncStorage.removeItem('id')
+      await AsyncStorage.removeItem('name')
+
+      this.props.navigation.navigate('Auth')
+      return true
+    } catch(e) {
+      return e
+    }
   }
 
-  _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('authorization');
-
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-  };
   render() {
     return (
       <View style={styles.container}>
@@ -47,4 +52,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Splash;
+export default Signout;

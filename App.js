@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems, NavigationActions } from 'react-navigation';
 import { Provider } from 'react-redux'
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
@@ -9,6 +9,7 @@ import Prescription from './src/containers/Prescription'
 import CameraPicker from './src/components/CameraPicker';
 import SignUpScreen from './src/containers/Signup'
 import SplashScreen from './src/containers/Splash'
+import SignoutScreen from './src/containers/Signout'
 import store from './src/store/index'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
@@ -70,7 +71,8 @@ const AppDrawerNavigator = createDrawerNavigator({
     screen: HomeStack
   },
   Setting: SettingScreen,
-  Prescription: Prescription
+  Prescription: Prescription,
+  Logout: SignoutScreen
 }, {
     contentComponent: (props) => (
       <View>
@@ -139,5 +141,12 @@ const styles = StyleSheet.create({
   },
   cam: {
     marginRight: 15
+  },
+  logoutbox: {
+    marginLeft: '6%'
+  },
+  logout: {
+    color: 'black',
+    fontWeight: 'bold'
   }
 });
