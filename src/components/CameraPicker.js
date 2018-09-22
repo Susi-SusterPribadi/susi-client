@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, Alert } from 'react-native'
-import { Text, Button, Body, Header, Title, Left, Right } from 'native-base'
+import { Text, Button } from 'native-base'
 import ImagePicker from 'react-native-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import axios from 'axios'
@@ -53,17 +53,26 @@ export default class CameraPicker extends Component {
     let formData = new FormData()
     let type = this.state.type
     formData.append('image', { uri: this.state.uri, name: this.state.filename, type })
-
-    axios
-      .post('https://imageuploader.adrowicaksono.xyz/upload', formData)
+    
+    axios({
+      method: 'POST',
+      url: 'http://susi-api.arisupriatna.com/aws/uploads3',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: formData
+    })
       .then(({data}) => {
         Alert.alert(
           'Susi says',
-          'Upload image success'
+          'Upload image success',
+          [
+            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+          ]
         )
-        console.log('hasil upload ==>', data.link)
+        console.log('hasil upload ==>', data)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log('Error from uploadImage ==>', err))
   }
 
   render() {
