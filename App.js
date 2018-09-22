@@ -6,8 +6,29 @@ import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
 import SettingScreen from './src/containers/Setting'
 import Prescription from './src/containers/Prescription'
-import CameraPicker from './src/components/CameraPicker';
+import CameraPicker from './src/components/CameraPicker'
+import SignUpScreen from './src/containers/Signup'
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import store from './src/store/index'
+
+
+const Opendrawer = (props) => {
+  return (
+    <View >
+      <TouchableOpacity style={styles.menu} onPress={() => { props.navigate.toggleDrawer() }}>
+        <Icon name="menu" size={25} color="white" />
+      </TouchableOpacity>
+    </View>
+  )
+}
+
+const CameraButton = (props) => {
+  return (
+    <TouchableOpacity style={styles.cam} onPress={() => { props.navigate.navigate('Camera')}}>
+        <Icon name="camera" size={30} color="white" />
+    </TouchableOpacity>
+  )
+}
 
 const AuthStack = createStackNavigator(
   {
