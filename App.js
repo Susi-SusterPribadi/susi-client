@@ -31,7 +31,7 @@ const Opendrawer = (props) => {
   return (
     <View >
       <TouchableOpacity style={styles.menu} onPress={() => { props.navigate.toggleDrawer() }}>
-        <Icon name="menu" size={25} color="white" />
+        <Icon name="menu" size={30} color="white" />
       </TouchableOpacity>
     </View>
   )
