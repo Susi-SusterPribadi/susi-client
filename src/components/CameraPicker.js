@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Image, View, Alert, ProgressBarAndroid } from 'react-native'
+import { 
+  Image, 
+  View, 
+  Alert, 
+  ProgressBarAndroid, 
+  TouchableOpacity, 
+  StyleSheet 
+} from 'react-native'
 import { Text, Button } from 'native-base'
 import ImagePicker from 'react-native-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome'

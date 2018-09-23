@@ -1,71 +1,91 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import Schedule from '../components/schedule'
+import { 
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  KeyboardAvoidingView, 
+  TouchableOpacity, 
+  ScrollView 
+} from 'react-native';
+import { 
+  Container, 
+  Header, 
+  Left, 
+  Body, 
+  Right, 
+  Button, 
+  Icon, 
+  Title 
+} from 'native-base';
 
 class Prescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      schedule: '',
-      visible: false
     };
-  }
-
-  openModal = () => {
-    this.setState({
-      visible: true
-    })
-  }
-
-  closeModal = () => {
-    this.setState({
-      visible: false
-    })
   }
 
   render() {
     return (
       <React.Fragment>
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer} style={styles.menu}>
-          <Icon name="menu" size={25} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Prescription</Text>
-        <Schedule data={this.state.schedule} close={this.closeModal} visible={this.state.visible}/>
-        <View style={styles.medicinebox}>
-          <View style={styles.medicine}>
-            <Text style={styles.medname}>Dexamethason</Text>
-            <Text style={styles.meddetail}>Stock: 10</Text>
-            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity onPress={this.openModal}>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.medicine}>
-            <Text style={styles.medname}>Dexamethason</Text>
-            <Text style={styles.meddetail}>Stock: 10</Text>
-            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.medicine}>
-            <Text style={styles.medname}>Dexamethason</Text>
-            <Text style={styles.meddetail}>Stock: 10</Text>
-            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.medicine}>
-            <Text style={styles.medname}>Dexamethason</Text>
-            <Text style={styles.meddetail}>Stock: 10</Text>
-            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
-          </View>
+        <Header style={{ backgroundColor: '#15BE59' }}>
+          <Left>
+            <Button transparent onPress={this.props.navigation.toggleDrawer}>
+              <Icon name='menu' style={{ fontSize: 30 }} />
+            </Button>
+          </Left>
+          <Body>
+            <Text style={styles.textHeader}>Susi</Text>
+          </Body>
+        </Header>
+        <View style={styles.titlebox}>
+          <Text style={styles.title}>Prescription</Text>
         </View>
+        <ScrollView>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+        </ScrollView>
       </React.Fragment>
     );
   }
@@ -76,10 +96,14 @@ const styles = StyleSheet.create({
     top: '2%',
     left: '3%'
   },
+  titlebox: {
+    height: '15%',
+  },
   title: {
-    top: '5%',
     marginLeft: 'auto',
     marginRight: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto',
     fontSize: 22
   },
   medicine: {
@@ -103,6 +127,14 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginRight: 20,
     color: 'blue'
+  },
+  textHeader: {
+    fontFamily: 'sacramento',
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 40,
+    marginLeft: '20%',
+    marginRight: 'auto'
   }
 })
 

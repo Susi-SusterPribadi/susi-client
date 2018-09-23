@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, Dimensions, AsyncStorage } from 'react-native';
+import { 
+  ScrollView,
+  Platform, 
+  StyleSheet, 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  Image, 
+  Button, 
+  Dimensions, 
+  AsyncStorage 
+} from 'react-native';
 import brand from '../../assets/img/splash.png'
 
 const { width, height } = Dimensions.get('window');

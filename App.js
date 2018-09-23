@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, DrawerItems, NavigationActions } from 'react-navigation';
+import { 
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  Image, 
+  TouchableOpacity,
+  AsyncStorage 
+} from 'react-native';
+import { 
+  createSwitchNavigator, 
+  createStackNavigator, 
+  createDrawerNavigator, 
+  DrawerItems,
+  NavigationActions 
+} from 'react-navigation';
 import { Provider } from 'react-redux'
 import HomeScreen from './src/containers/Home'
 import SignInScreen from './src/containers/SignIn'
@@ -66,6 +80,8 @@ const HomeStack = createStackNavigator({
   }
 })
 
+let name = ''
+
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {
     screen: HomeStack
@@ -78,7 +94,7 @@ const AppDrawerNavigator = createDrawerNavigator({
       <View>
         <View style={styles.drawer}>
           <Image source={{ uri: 'https://i.pinimg.com/564x/10/3c/09/103c097872200038dd538c8f7e56403e.jpg' }} style={styles.avatar} />
-          <Text style={styles.username}>Mickey</Text>
+          <Text style={styles.username}>{name}</Text>
         </View>
         <DrawerItems {...props} />
       </View>
@@ -96,8 +112,21 @@ const SwitchNav = createSwitchNavigator(
   }
 )
 
+_bootstrapAsync = async () => {
+  console.log('masuk');
+  
+  const nameUser = await AsyncStorage.getItem('name')
+
+  name = nameUser
+};
 
 export default class App extends Component {
+
+  constructor(props){
+    super(props)
+    _bootstrapAsync()
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -111,7 +140,7 @@ const styles = StyleSheet.create({
   drawer: {
     width: '100%',
     height: 150,
-    backgroundColor: '#7BC342'
+    backgroundColor: '#15BE59'
   },
   avatar: {
     width: '25%',
