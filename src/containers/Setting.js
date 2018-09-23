@@ -39,16 +39,19 @@ class Prescription extends Component {
   _handleTimeMorning = (time) => {
     const times = time.toLocaleTimeString('it-IT')
     this.setState({ timeMorning: times})
+    this._hideDateTimePickerMorning()
   }
 
   _handleTimeEvening = (time) => {
     const times = time.toLocaleTimeString('it-IT')
     this.setState({ timeEvening: times})
+    this._hideDateTimePickerEvening()
   }
 
   _handleTimeNight = (time) => {
     const times = time.toLocaleTimeString('it-IT')
     this.setState({ timeNight: times})
+    this._hideDateTimePickerNight()
   }
 
   _hideDateTimePickerMorning = () => {
@@ -79,11 +82,14 @@ class Prescription extends Component {
             </TouchableOpacity>
           </Left>
           <Body>
-            <Title style={{
+            <Text style={{
+              fontFamily: 'sacramento',
               color: 'white',
               textAlign: 'center',
-              fontSize: 18,
-            }}>Menu Setting</Title>
+              fontSize: 40,
+              marginLeft: '55%',
+              marginRight: 'auto'
+            }}>Susi</Text>
           </Body>
           <Right>
             <TouchableOpacity onPress={this.submit}>
@@ -100,18 +106,18 @@ class Prescription extends Component {
                 <Text style={{fontSize: 18}}>Morning</Text>
               </Left>
               <Right>
-              <TouchableOpacity onPress={this._showDateTimePickerMorning}>
-                {
-                  this.state.timeMorning ? <Text>{this.state.timeMorning}</Text> : <Text>Set Times</Text>
-                }
-              </TouchableOpacity>
-              <DateTimePicker
-                mode="time"
-                isVisible={this.state.isDateTimePickerVisibleMorning}
-                is24Hour={true}
-                onConfirm={this._handleTimeMorning}
-                onCancel={this._hideDateTimePickerMorning}
-              />
+                <TouchableOpacity onPress={this._showDateTimePickerMorning}>
+                  {
+                    this.state.timeMorning ? <Text>{this.state.timeMorning}</Text> : <Text>Set Times</Text>
+                  }
+                </TouchableOpacity>
+                <DateTimePicker
+                  mode="time"
+                  isVisible={this.state.isDateTimePickerVisibleMorning}
+                  is24Hour={true}
+                  onConfirm={this._handleTimeMorning}
+                  onCancel={this._hideDateTimePickerMorning}
+                />
               </Right>
             </ListItem>
 
