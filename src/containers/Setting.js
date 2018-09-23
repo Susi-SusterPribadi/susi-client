@@ -21,8 +21,24 @@ import {
   Title 
 } from 'native-base'
 import DateTimePicker from 'react-native-modal-datetime-picker'
+import { connect } from 'react-redux'
+import configTime from '../actions/ConfigTime.action'
 
-class Prescription extends Component {
+const mapStateToProps = (state) => {
+  return {
+    config: state.configTime
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    configurationTime: (time) => {
+      dispatch(configTime(time))
+    }
+  }
+}
+
+class Setting extends Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -86,8 +102,9 @@ class Prescription extends Component {
 
   submit() {
     const { timeMorning, timeEvening, timeNight } = this.state
-    let dataTime = {timeMorning: timeMorning, timeEvening: timeEvening, timeNight: timeNight}
+    let dataTime = {morning: timeMorning, evening: timeEvening, night: timeNight}
     console.log('submit ===> ',dataTime)
+    this.props.configurationTime(dataTime)
   }
 
   render() {
@@ -201,4 +218,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Prescription;
+export default connect(mapStateToProps, mapDispatchToProps)(Setting);

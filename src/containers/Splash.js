@@ -19,7 +19,6 @@ const { width, height } = Dimensions.get('window');
 class Splash extends Component {
   constructor(props) {
     super(props);
-    
   }
 
   componentDidMount(){
