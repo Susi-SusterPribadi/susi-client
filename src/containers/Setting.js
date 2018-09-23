@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import {
+  Platform, 
+  StyleSheet, 
+  View, 
+  KeyboardAvoidingView, 
+  TouchableOpacity 
+} from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import { Container, ListItem, List, Content, Right, Left, Button, Text, Header, Body, Title } from 'native-base'
+import { 
+  Container, 
+  ListItem, 
+  List, 
+  Content, 
+  Right, 
+  Left, 
+  Button, 
+  Text, 
+  Header, 
+  Body, 
+  Title 
+} from 'native-base'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
 class Prescription extends Component {

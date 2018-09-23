@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { 
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  KeyboardAvoidingView, 
+  Dimensions 
+} from 'react-native';
 import gift, { GiftedChat } from "react-native-gifted-chat"
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 

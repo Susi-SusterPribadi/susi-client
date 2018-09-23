@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
-import { ScrollView ,Platform, StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, Dimensions, AsyncStorage } from 'react-native';
-import { Container, Card} from 'native-base';
+import { 
+  ScrollView,
+  Platform, 
+  StyleSheet, 
+  View, 
+  Text, 
+  TextInput, 
+  TouchableOpacity, 
+  Image, 
+  Button,
+  Dimensions, 
+  AsyncStorage 
+} from 'react-native';
+import { 
+  Container, 
+  Card
+} from 'native-base';
 import logo from "../../assets/img/logo.png"
 import axios from 'axios'
 import { baseURL } from '../config' 

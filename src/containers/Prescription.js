@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity, ScrollView } from 'react-native';
-import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
-import Schedule from '../components/schedule'
+import { 
+  Platform, 
+  StyleSheet, 
+  Text, 
+  View, 
+  KeyboardAvoidingView, 
+  TouchableOpacity, 
+  ScrollView 
+} from 'react-native';
+import { 
+  Container, 
+  Header, 
+  Left, 
+  Body, 
+  Right, 
+  Button, 
+  Icon, 
+  Title 
+} from 'native-base';
 
 class Prescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      schedule: '',
-      visible: false
     };
-  }
-
-  openModal = () => {
-    this.setState({
-      visible: true
-    })
-  }
-
-  closeModal = () => {
-    this.setState({
-      visible: false
-    })
   }
 
   render() {
@@ -40,39 +42,48 @@ class Prescription extends Component {
         <View style={styles.titlebox}>
           <Text style={styles.title}>Prescription</Text>
         </View>
-        <Schedule data={this.state.schedule} close={this.closeModal} visible={this.state.visible} />
         <ScrollView>
           <View style={styles.medicine}>
             <Text style={styles.medname}>Dexamethason</Text>
             <Text style={styles.meddetail}>Stock: 10</Text>
             <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity onPress={this.openModal}>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
+            <Text style={styles.meddetail}>Route: Oral</Text>
           </View>
           <View style={styles.medicine}>
             <Text style={styles.medname}>Dexamethason</Text>
             <Text style={styles.meddetail}>Stock: 10</Text>
             <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
+            <Text style={styles.meddetail}>Route: Oral</Text>
           </View>
           <View style={styles.medicine}>
             <Text style={styles.medname}>Dexamethason</Text>
             <Text style={styles.meddetail}>Stock: 10</Text>
             <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
+            <Text style={styles.meddetail}>Route: Oral</Text>
           </View>
           <View style={styles.medicine}>
             <Text style={styles.medname}>Dexamethason</Text>
             <Text style={styles.meddetail}>Stock: 10</Text>
             <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
-            <TouchableOpacity>
-              <Text style={styles.schedule}>Schedule</Text>
-            </TouchableOpacity>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
+          </View>
+          <View style={styles.medicine}>
+            <Text style={styles.medname}>Dexamethason</Text>
+            <Text style={styles.meddetail}>Stock: 10</Text>
+            <Text style={styles.meddetail}>Exp Date: 2018-12-31</Text>
+            <Text style={styles.meddetail}>Route: Oral</Text>
           </View>
         </ScrollView>
       </React.Fragment>
@@ -94,6 +105,12 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
     fontSize: 22
+  },
+  medicine: {
+    width: '100%',
+    height: 100,
+    borderBottomWidth: 1,
+    borderColor: 'lightgray',
   },
   medicinebox: {
     top: '10%'
