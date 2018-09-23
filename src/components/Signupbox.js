@@ -37,7 +37,7 @@ class SignUp extends Component {
             textStyle={{ color: "white" }}
             placeHolderTextStyle={{ color: "white" }}
             onDateChange={this.setDate}
-            
+          
             />
         </View>
         <TextInput placeholder="Password" placeholderTextColor="white" style={styles.inputbox} />
