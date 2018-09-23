@@ -25,7 +25,7 @@ import SignUpScreen from './src/containers/Signup'
 import SplashScreen from './src/containers/Splash'
 import SignoutScreen from './src/containers/Signout'
 import store from './src/store/index'
-import Icon from 'react-native-vector-icons/SimpleLineIcons'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const Opendrawer = (props) => {
   return (
@@ -39,7 +39,7 @@ const Opendrawer = (props) => {
  const CameraButton = (props) => {
   return (
     <TouchableOpacity style={styles.cam} onPress={() => { props.navigate.navigate('Camera')}}>
-        <Icon name="camera" size={30} color="white" />
+        <Icon name="add-a-photo" size={30} color="white" />
     </TouchableOpacity>
   )
 }
@@ -84,11 +84,26 @@ let name = ''
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {
-    screen: HomeStack
+    screen: HomeStack,
+    navigationOptions: ({ navigation }) => ({
+      drawerIcon: <Icon name="home" size={25} color="#000"></Icon>
+    })
   },
-  Setting: SettingScreen,
-  Prescription: Prescription,
-  Logout: SignoutScreen
+  Prescription: {
+    screen: Prescription,
+    navigationOptions: ({ navigation }) => ({
+      drawerIcon: <Icon name="schedule" size={25} color="#000"></Icon>
+    })
+  },
+  Setting: {
+    screen: SettingScreen,
+    navigationOptions: ({ navigation }) => ({
+      drawerIcon: <Icon name="settings" size={25} color="#000"></Icon>
+    })
+  },
+  Logout: {
+    screen: SignoutScreen,
+  }
 }, {
     contentComponent: (props) => (
       <View>
