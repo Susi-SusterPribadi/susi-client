@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import {Platform, StyleSheet, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import { Container, ListItem, List, Content, Right, Left, DatePicker } from 'native-base'
+import { Container, ListItem, List, Content, Right, Left, Button, Text, Header, Body, Title } from 'native-base'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
 class Prescription extends Component {
@@ -15,6 +15,7 @@ class Prescription extends Component {
       timeEvening: null,
       timeNight: null
     };
+    this.submit = this.submit.bind(this)
   }
 
   _showDateTimePickerMorning = () => {
@@ -35,44 +36,64 @@ class Prescription extends Component {
     })
   }
 
-  // _hideDateTimePicker = () => {
-  //   this.setState({
-  //     isDateTimePickerVisible: false
-  //   })
-  // }
-
   _handleTimeMorning = (time) => {
     const times = time.toLocaleTimeString('it-IT')
-    this.setState({ timeMorning: times, isDateTimePickerVisibleMorning: false })
-    // this._hideDateTimePicker()
+    this.setState({ timeMorning: times})
   }
 
   _handleTimeEvening = (time) => {
     const times = time.toLocaleTimeString('it-IT')
-    this.setState({ timeEvening: times, isDateTimePickerVisibleEvening: false })
-    // this._hideDateTimePicker()
+    this.setState({ timeEvening: times})
   }
 
   _handleTimeNight = (time) => {
     const times = time.toLocaleTimeString('it-IT')
-    this.setState({ timeNight: times, isDateTimePickerVisibleNight: false })
-    // this._hideDateTimePicker()
+    this.setState({ timeNight: times})
+  }
+
+  _hideDateTimePickerMorning = () => {
+    this.setState({ isDateTimePickerVisibleMorning: false })
+  }
+
+  _hideDateTimePickerEvening = () => {
+    this.setState({ isDateTimePickerVisibleEvening: false })
+  }
+
+  _hideDateTimePickerNight = () => {
+    this.setState({ isDateTimePickerVisibleNight: false })
+  }
+
+  submit() {
+    const { timeMorning, timeEvening, timeNight } = this.state
+    let dataTime = {timeMorning: timeMorning, timeEvening: timeEvening, timeNight: timeNight}
+    console.log('submit ===> ',dataTime)
   }
 
   render() {
     return (
       <React.Fragment>
-        <TouchableOpacity onPress={this.props.navigation.toggleDrawer} style={styles.menu}>
-          <Icon name="menu" size={25} color="black"/>
-        </TouchableOpacity>
-        <Text style={{
-          top: '5%', 
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          fontSize: 22
-        }}>Menu Setting</Text>
-
-        <View style={{top: '8%'}}>
+        <Header style={{backgroundColor: '#15BE59'}}>
+          <Left>
+            <TouchableOpacity onPress={this.props.navigation.toggleDrawer} style={styles.menu}>
+              <Icon name="menu" size={25} color="white"/>
+            </TouchableOpacity>
+          </Left>
+          <Body>
+            <Title style={{
+              color: 'white',
+              textAlign: 'center',
+              fontSize: 18,
+            }}>Menu Setting</Title>
+          </Body>
+          <Right>
+            <TouchableOpacity onPress={this.submit}>
+              <Text style={{
+                color: '#FFF'
+              }}>Save</Text>
+            </TouchableOpacity>
+          </Right>
+        </Header>
+        <View style={{top: '1%'}}>
           <List>
             <ListItem>
               <Left>
@@ -89,7 +110,7 @@ class Prescription extends Component {
                 isVisible={this.state.isDateTimePickerVisibleMorning}
                 is24Hour={true}
                 onConfirm={this._handleTimeMorning}
-                onCancel={this._hideDateTimePicker}
+                onCancel={this._hideDateTimePickerMorning}
               />
               </Right>
             </ListItem>
@@ -109,7 +130,7 @@ class Prescription extends Component {
                   isVisible={this.state.isDateTimePickerVisibleEvening}
                   is24Hour={true}
                   onConfirm={this._handleTimeEvening}
-                  onCancel={this._hideDateTimePicker}
+                  onCancel={this._hideDateTimePickerEvening}
                 />
               </Right>
             </ListItem>
@@ -129,7 +150,7 @@ class Prescription extends Component {
                   isVisible={this.state.isDateTimePickerVisibleNight}
                   is24Hour={true}
                   onConfirm={this._handleTimeNight}
-                  onCancel={this._hideDateTimePicker}
+                  onCancel={this._hideDateTimePickerNight}
                 />
               </Right>
             </ListItem>
@@ -145,7 +166,15 @@ const styles = StyleSheet.create({
   menu: {
     top: '2%',
     left: '3%'
-  }
+  },
+  button: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '85%',
+    marginTop: 30,
+    backgroundColor: 'green',
+    borderRadius: 30
+  },
 })
 
 export default Prescription;
