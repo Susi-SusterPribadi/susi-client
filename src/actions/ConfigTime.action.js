@@ -1,15 +1,36 @@
 import axios from 'axios'
 
-export default function configTime(time) {
+export default function configTime(data) {
   return (dispatch) => {
-    console.log('from action config time ==>', time)
-    // axios({
-    //   method: 'POST',
-    //   url: 'http://101.110.123.126:3030/config',
-    //   data: {
-
-    //   }
-    // })
+    const { 
+      timeMorning,
+      timeAfternoon,
+      timeNight,
+      userId,
+      token
+    } = data
+    dispatch({ type: 'SETTING_TIME_REQUEST' })
+    console.log('from action config data ==>', data)
+    axios({
+      method: 'POST',
+      url: `http://susi-api.arisupriatna.com/config?userId=${userId}`,
+      headers: {
+        authorization: token
+      },
+      data: {
+        morning: timeMorning,
+        afternoon: timeAfternoon,
+        night: timeNight
+      }
+    })
+    .then(({ data }) => {
+      console.log('masuk then ==>', data)
+      dispatch({ type: 'SETTING_TIME_SUCCESS', payload: data })
+    })
+    .catch((err) => {
+      dispatch({ type: 'SETTING_TIME_FAILED', payload: err })
+      console.log('masuk catch =>', err)
+    })
 
   }
 }

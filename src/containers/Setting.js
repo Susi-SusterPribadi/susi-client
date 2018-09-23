@@ -4,7 +4,8 @@ import {
   StyleSheet, 
   View, 
   KeyboardAvoidingView, 
-  TouchableOpacity 
+  TouchableOpacity,
+  AsyncStorage 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import { 
@@ -23,10 +24,11 @@ import {
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import { connect } from 'react-redux'
 import configTime from '../actions/ConfigTime.action'
+import getDataTime from '../actions/GetDataTime.action';
 
 const mapStateToProps = (state) => {
   return {
-    config: state.configTime
+    dataTime: state.getDataTime
   }
 }
 
@@ -34,6 +36,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     configurationTime: (time) => {
       dispatch(configTime(time))
+    },
+    getData: (data) => {
+      dispatch(getDataTime(data))
     }
   }
 }
@@ -43,13 +48,19 @@ class Setting extends Component {
     super(props);
     this.state = { 
       isDateTimePickerVisibleMorning: false,
-      isDateTimePickerVisibleEvening: false,
+      isDateTimePickerVisibleAfternoon: false,
       isDateTimePickerVisibleNight: false,
       timeMorning: null,
-      timeEvening: null,
+      timeAfternoon: null,
       timeNight: null
     };
     this.submit = this.submit.bind(this)
+  }
+
+  async componentDidMount() {
+    const token  = await AsyncStorage.getItem('authorization')
+    const id = await AsyncStorage.getItem('id')
+    this.props.getData({ token: token, userId: id })
   }
 
   _showDateTimePickerMorning = () => {
@@ -58,9 +69,9 @@ class Setting extends Component {
     })
   }
 
-  _showDateTimePickerEvening = () => {
+  _showDateTimePickerAfternoon = () => {
     this.setState({
-      isDateTimePickerVisibleEvening: true
+      isDateTimePickerVisibleAfternoon: true
     })
   }
 
@@ -76,10 +87,10 @@ class Setting extends Component {
     this._hideDateTimePickerMorning()
   }
 
-  _handleTimeEvening = (time) => {
+  _handleTimeAfternoon = (time) => {
     const times = time.toLocaleTimeString('it-IT')
-    this.setState({ timeEvening: times})
-    this._hideDateTimePickerEvening()
+    this.setState({ timeAfternoon: times})
+    this._hideDateTimePickerAfternoon()
   }
 
   _handleTimeNight = (time) => {
@@ -92,22 +103,37 @@ class Setting extends Component {
     this.setState({ isDateTimePickerVisibleMorning: false })
   }
 
-  _hideDateTimePickerEvening = () => {
-    this.setState({ isDateTimePickerVisibleEvening: false })
+  _hideDateTimePickerAfternoon = () => {
+    this.setState({ isDateTimePickerVisibleAfternoon: false })
   }
 
   _hideDateTimePickerNight = () => {
     this.setState({ isDateTimePickerVisibleNight: false })
   }
 
-  submit() {
-    const { timeMorning, timeEvening, timeNight } = this.state
-    let dataTime = {morning: timeMorning, evening: timeEvening, night: timeNight}
-    console.log('submit ===> ',dataTime)
-    this.props.configurationTime(dataTime)
+  submit = async () => {
+    try {
+      const token = await AsyncStorage.getItem('authorization')
+      const id = await AsyncStorage.getItem('id')
+      const { timeMorning, timeAfternoon, timeNight } = this.state
+      let dataTime = {
+        timeMorning: timeMorning, 
+        timeAfternoon: timeAfternoon, 
+        timeNight: timeNight,
+        userId: id,
+        token: token
+      }
+      console.log('submit ===> ',dataTime)
+      this.props.configurationTime(dataTime)
+      console.log('auth ==>',auth)
+      console.log('userId', id)
+    } catch(err) {
+      return err
+    }
   }
 
   render() {
+    console.log('data from this.props.dataTime ==>', this.props.dataTime)
     return (
       <React.Fragment>
         <Header style={{backgroundColor: '#15BE59'}}>
@@ -143,8 +169,9 @@ class Setting extends Component {
               <Right>
                 <TouchableOpacity onPress={this._showDateTimePickerMorning}>
                   {
-                    this.state.timeMorning ? <Text>{this.state.timeMorning}</Text> : <Text>Set Times</Text>
-                  }
+                    this.props.dataTime.data.morning ? <Text>{this.props.dataTime.data.morning}</Text> : 
+                    <Text>Set Times</Text>
+                  } 
                 </TouchableOpacity>
                 <DateTimePicker
                   mode="time"
@@ -158,20 +185,22 @@ class Setting extends Component {
 
             <ListItem>
               <Left>
-                <Text style={{fontSize: 18}}>Evening</Text>
+                <Text style={{fontSize: 18}}>Afternoon</Text>
               </Left>
               <Right>
-                <TouchableOpacity onPress={this._showDateTimePickerEvening}>
+                <TouchableOpacity onPress={this._showDateTimePickerAfternoon}>
                   {
-                    this.state.timeEvening ? <Text>{this.state.timeEvening}</Text> : <Text>Set Times</Text>
+                    this.props.dataTime.data.afternoon ? 
+                    <Text>{this.props.dataTime.data.afternoon}</Text> : 
+                    <Text>Set Times</Text>
                   }
                 </TouchableOpacity>
                 <DateTimePicker
                   mode="time"
-                  isVisible={this.state.isDateTimePickerVisibleEvening}
+                  isVisible={this.state.isDateTimePickerVisibleAfternoon}
                   is24Hour={true}
-                  onConfirm={this._handleTimeEvening}
-                  onCancel={this._hideDateTimePickerEvening}
+                  onConfirm={this._handleTimeAfternoon}
+                  onCancel={this._hideDateTimePickerAfternoon}
                 />
               </Right>
             </ListItem>
@@ -183,7 +212,7 @@ class Setting extends Component {
               <Right>
                 <TouchableOpacity onPress={this._showDateTimePickerNight}>
                   {
-                    this.state.timeNight ? <Text>{this.state.timeNight}</Text> : <Text>Set Times</Text>
+                    this.props.dataTime.data.night ? <Text>{this.props.dataTime.data.night}</Text> : <Text>Set Times</Text>
                   }
                 </TouchableOpacity>
                 <DateTimePicker
