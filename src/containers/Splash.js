@@ -22,10 +22,6 @@ class Splash extends Component {
   }
 
   componentDidMount(){
-    setTimeout(this.checking, 500);
-  }
-
-  checking = () => {
     this._bootstrapAsync()
   }
 

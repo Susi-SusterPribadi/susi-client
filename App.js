@@ -27,6 +27,7 @@ import SignoutScreen from './src/containers/Signout'
 import ProfileScreen from './src/containers/Profile'
 import store from './src/store/index'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const Opendrawer = (props) => {
   return (
@@ -87,17 +88,33 @@ const AppDrawerNavigator = createDrawerNavigator({
   Home: {
     screen: HomeStack,
     navigationOptions: ({ navigation }) => ({
-      drawerIcon: <Icon name="home" size={25} color="#000"></Icon>
+      drawerIcon: <Icon name="home" size={25} color="white"></Icon>,
     })
   },
-  Profile:ProfileScreen,
+  Profile:{
+    screen: ProfileScreen,
+    navigationOptions: ({navigation}) => ({
+      drawerIcon: <Icons name="account" size={25} color="white"></Icons>,
+    })
+  },
   Prescription: {
     screen: Prescription,
     navigationOptions: ({ navigation }) => ({
-      drawerIcon: <Icon name="schedule" size={25} color="#000"></Icon>
+      drawerIcon: <Icon name="schedule" size={25} color="white"></Icon>,
     })
   },
-  Logout: SignoutScreen
+  Setting: {
+    screen: SettingScreen,
+    navigationOptions: ({ navigation }) => ({
+      drawerIcon: <Icon name="settings" size={25} color="white"></Icon>
+    })
+  },
+  Logout: {
+    screen: SignoutScreen,
+    navigationOptions: ({navigation}) => ({
+      drawerIcon: <Icons name="logout" size={25} color="white"></Icons>
+    })
+  }
 }, {
     contentComponent: (props) => (
       <View style={styles.drawercontainer}>
@@ -105,7 +122,7 @@ const AppDrawerNavigator = createDrawerNavigator({
           <Image source={{ uri: 'https://i.pinimg.com/564x/10/3c/09/103c097872200038dd538c8f7e56403e.jpg' }} style={styles.avatar} />
           <Text style={styles.username}>{name}</Text>
         </View>
-        <DrawerItems style={styles.items} {...props} />
+        <DrawerItems activeBackgroundColor="#5FD68F" activeTintColor='#007E33' inactiveTintColor="white" {...props} />
       </View>
     )
   })
@@ -188,7 +205,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   drawercontainer: {
-    backgroundColor: '#15BE59'
+    backgroundColor: '#15BE59',
+    height: '100%'
   },
   items: {
     color: 'white'
