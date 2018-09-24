@@ -115,18 +115,17 @@ class Setting extends Component {
     try {
       const token = await AsyncStorage.getItem('authorization')
       const id = await AsyncStorage.getItem('id')
+      const { morning, afternoon, night } = this.props.dataTime.data
       const { timeMorning, timeAfternoon, timeNight } = this.state
       let dataTime = {
-        timeMorning: timeMorning, 
-        timeAfternoon: timeAfternoon, 
-        timeNight: timeNight,
+        timeMorning: timeMorning || morning, 
+        timeAfternoon: timeAfternoon || afternoon, 
+        timeNight: timeNight || night,
         userId: id,
         token: token
       }
-      console.log('submit ===> ',dataTime)
       this.props.configurationTime(dataTime)
-      console.log('auth ==>',auth)
-      console.log('userId', id)
+      this.props.getData({ token: token, userId: id })
     } catch(err) {
       return err
     }
