@@ -24,6 +24,7 @@ import CameraPicker from './src/components/CameraPicker';
 import SignUpScreen from './src/containers/Signup'
 import SplashScreen from './src/containers/Splash'
 import SignoutScreen from './src/containers/Signout'
+import ProfileScreen from './src/containers/Profile'
 import store from './src/store/index'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
@@ -89,29 +90,22 @@ const AppDrawerNavigator = createDrawerNavigator({
       drawerIcon: <Icon name="home" size={25} color="#000"></Icon>
     })
   },
+  Profile:ProfileScreen,
   Prescription: {
     screen: Prescription,
     navigationOptions: ({ navigation }) => ({
       drawerIcon: <Icon name="schedule" size={25} color="#000"></Icon>
     })
   },
-  Setting: {
-    screen: SettingScreen,
-    navigationOptions: ({ navigation }) => ({
-      drawerIcon: <Icon name="settings" size={25} color="#000"></Icon>
-    })
-  },
-  Logout: {
-    screen: SignoutScreen,
-  }
+  Logout: SignoutScreen
 }, {
     contentComponent: (props) => (
-      <View>
+      <View style={styles.drawercontainer}>
         <View style={styles.drawer}>
           <Image source={{ uri: 'https://i.pinimg.com/564x/10/3c/09/103c097872200038dd538c8f7e56403e.jpg' }} style={styles.avatar} />
           <Text style={styles.username}>{name}</Text>
         </View>
-        <DrawerItems {...props} />
+        <DrawerItems style={styles.items} {...props} />
       </View>
     )
   })
@@ -192,5 +186,11 @@ const styles = StyleSheet.create({
   logout: {
     color: 'black',
     fontWeight: 'bold'
+  },
+  drawercontainer: {
+    backgroundColor: '#15BE59'
+  },
+  items: {
+    color: 'white'
   }
 });
