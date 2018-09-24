@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView, 
   Dimensions 
 } from 'react-native';
-import gift, { GiftedChat } from "react-native-gifted-chat"
+import gift, { GiftedChat, Bubble } from "react-native-gifted-chat"
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
 
@@ -71,6 +71,21 @@ class Home extends Component {
           onLongPress={this.try}
           user={{
             _id: 1,
+          }}
+          renderBubble={props => {
+            return (
+              <Bubble
+                {...props}
+                wrapperStyle={{
+                  right: {
+                    backgroundColor: '#15BE59',
+                  },
+                  left: {
+                    backgroundColor: 'white',
+                  },
+                }}
+              />
+            );
           }} />
       </React.Fragment>
     );

@@ -54,6 +54,7 @@ class SignIn extends Component {
       AsyncStorage.setItem('email', result.data.email)
       AsyncStorage.setItem('id', result.data.id)
       AsyncStorage.setItem('name', result.data.name)
+      AsyncStorage.setItem('birthdate', result.data.birthdate)
       this.setState({
         email: '',
         password: ''
