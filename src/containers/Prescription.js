@@ -9,7 +9,7 @@ import {
   ScrollView 
 } from 'react-native';
 import { 
-  Container, 
+  Container,
   Header, 
   Left, 
   Body, 
