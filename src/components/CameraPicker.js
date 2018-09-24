@@ -5,7 +5,8 @@ import {
   Alert, 
   ProgressBarAndroid, 
   TouchableOpacity, 
-  StyleSheet 
+  StyleSheet,
+  AsyncStorage 
 } from 'react-native'
 import { Text, Button } from 'native-base'
 import ImagePicker from 'react-native-image-picker'
@@ -71,24 +72,33 @@ class CameraPicker extends Component {
     })
   }
 
-  uploadImage =  () => {
-    let formData = new FormData()
-    let type = this.state.type
-    formData.append('image', { uri: this.state.uri, name: this.state.filename, type })
-    this.props.uploadingImage(formData)
-    
-    return (
-      this.props.dataUpload.uploadImage.loading ? 
-      <ProgressBarAndroid/> :
-      Alert.alert(
-        'Susi says',
-        'Image upload success',
-        [
-          {text: 'Cancel', onPress: () => this.props.navigation.navigate('Camera')},
-          {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-        ]
+  uploadImage = async () => {
+    try {
+      const token = await AsyncStorage.getItem('authorization')
+      let formData = new FormData()
+      let type = this.state.type
+      formData.append('image', { uri: this.state.uri, name: this.state.filename, type })
+      this.props.uploadingImage({
+        formData: formData,
+        auth: token
+      })
+      
+      return (
+        this.props.dataUpload.uploadImage.loading ? 
+        <ProgressBarAndroid/> :
+        Alert.alert(
+          'Susi says',
+          'Image upload success',
+          [
+            {text: 'Cancel', onPress: () => this.props.navigation.navigate('Camera')},
+            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+          ]
+        )
       )
-    )
+
+    } catch(err) {
+      console.log('error from camera picker ==>', err)
+    }
   }
 
   render() {
