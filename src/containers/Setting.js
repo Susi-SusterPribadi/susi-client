@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
-import {
-  Platform, 
+import { 
   StyleSheet, 
   View, 
-  KeyboardAvoidingView, 
   TouchableOpacity,
   AsyncStorage 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import { 
-  Container, 
+import {  
   ListItem, 
-  List, 
-  Content, 
+  List,  
   Right, 
-  Left, 
-  Button, 
+  Left,  
   Text, 
   Header, 
   Body, 
-  Title 
 } from 'native-base'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import { connect } from 'react-redux'
@@ -124,10 +118,12 @@ class Setting extends Component {
         userId: id,
         token: token
       }
+      console.log('dataTime from submit setting time ==>', dataTime)
       this.props.configurationTime(dataTime)
       this.props.getData({ token: token, userId: id })
     } catch(err) {
-      return err
+      console.log('masuk catch submit setting time =>', err)
+      return err 
     }
   }
 
@@ -168,12 +164,16 @@ class Setting extends Component {
                 <Text style={{fontSize: 18}}>Morning</Text>
               </Left>
               <Right>
+              {
+                this.state.timeMorning ? <Text>{this.state.timeMorning}</Text> :
                 <TouchableOpacity onPress={this._showDateTimePickerMorning}>
                   {
-                    this.props.dataTime.data.morning ? <Text>{this.props.dataTime.data.morning}</Text> : 
+                    this.props.dataTime.data.morning ? 
+                    <Text>{this.props.dataTime.data.morning}</Text> : 
                     <Text>Set Times</Text>
                   } 
                 </TouchableOpacity>
+              }
                 <DateTimePicker
                   mode="time"
                   isVisible={this.state.isDateTimePickerVisibleMorning}
@@ -189,13 +189,16 @@ class Setting extends Component {
                 <Text style={{fontSize: 18}}>Afternoon</Text>
               </Left>
               <Right>
-                <TouchableOpacity onPress={this._showDateTimePickerAfternoon}>
-                  {
-                    this.props.dataTime.data.afternoon ? 
-                    <Text>{this.props.dataTime.data.afternoon}</Text> : 
-                    <Text>Set Times</Text>
-                  }
-                </TouchableOpacity>
+                {
+                  this.state.timeAfternoon ? <Text>{this.state.timeAfternoon}</Text> :
+                  <TouchableOpacity onPress={this._showDateTimePickerAfternoon}>
+                    {
+                      this.props.dataTime.data.afternoon ? 
+                      <Text>{this.props.dataTime.data.afternoon}</Text> : 
+                      <Text>Set Times</Text>
+                    }
+                  </TouchableOpacity>
+                }
                 <DateTimePicker
                   mode="time"
                   isVisible={this.state.isDateTimePickerVisibleAfternoon}
@@ -211,11 +214,16 @@ class Setting extends Component {
                 <Text style={{fontSize: 18}}>Night</Text>
               </Left>
               <Right>
-                <TouchableOpacity onPress={this._showDateTimePickerNight}>
-                  {
-                    this.props.dataTime.data.night ? <Text>{this.props.dataTime.data.night}</Text> : <Text>Set Times</Text>
-                  }
-                </TouchableOpacity>
+                {
+                  this.state.timeNight ? <Text>{this.state.timeNight}</Text> :
+                  <TouchableOpacity onPress={this._showDateTimePickerNight}>
+                    {
+                      this.props.dataTime.data.night ? 
+                      <Text>{this.props.dataTime.data.night}</Text> : 
+                      <Text>Set Times</Text>
+                    }
+                  </TouchableOpacity>
+                }
                 <DateTimePicker
                   mode="time"
                   isVisible={this.state.isDateTimePickerVisibleNight}
