@@ -20,6 +20,7 @@ export default function uploadImage(data) {
       })
       .catch((err) => {
         dispatch({ type: 'UPLOAD_IMAGE_FAILED', payload: err.message })
+        console.log('masuk catch error uploadImg ===>', err)
       })
   }
 }
