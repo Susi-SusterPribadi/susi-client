@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import socketio from 'socket.io-client';
+
 import PushConfig from './PushConfig';
 import PushNotification from 'react-native-push-notification';
 import { socketUrl } from '../config';
@@ -27,6 +28,13 @@ class Home extends Component {
       vibration: 200, // ini besar vibrate nya
       soundName: 'default' // ini ya you know lah
     });
+    const self = this;
+    const { messages } = self.state;
+    this.socket.on('message', messages => {
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, messages)
+      }));
+    });
   }
 
   onSend(messages = []) {
@@ -38,16 +46,6 @@ class Home extends Component {
   cam = () => {
     this.props.navigation.navigate('Camera');
   };
-
-  componentDidMount() {
-    const self = this;
-    const { messages } = self.state;
-    this.socket.on('message', messages => {
-      this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, messages)
-      }));
-    });
-  }
 
   render() {
     return (
