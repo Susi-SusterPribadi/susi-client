@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   AsyncStorage 
 } from 'react-native';
-import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import {  
   ListItem, 
   List,  
@@ -13,12 +12,14 @@ import {
   Left,  
   Text, 
   Header, 
-  Body, 
+  Body,
+  Title, 
 } from 'native-base'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import { connect } from 'react-redux'
 import configTime from '../actions/ConfigTime.action'
-import getDataTime from '../actions/GetDataTime.action';
+import getDataTime from '../actions/GetDataTime.action'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const mapStateToProps = (state) => {
   return {
@@ -134,26 +135,19 @@ class Setting extends Component {
         <Header style={{backgroundColor: '#15BE59'}}>
           <Left>
             <TouchableOpacity onPress={this.props.navigation.toggleDrawer} style={styles.menu}>
-              <Icon name="menu" size={25} color="white"/>
+              <Icon name="bars" size={25} color="white"/>
             </TouchableOpacity>
           </Left>
           <Body>
-            <Text style={{
-              fontFamily: 'sacramento',
-              color: 'white',
-              textAlign: 'center',
-              fontSize: 40,
-              marginLeft: '55%',
-              marginRight: 'auto',
-              marginTop: 'auto',
-              marginBottom: 'auto'
-            }}>Susi</Text>
+            <Title>Setting</Title>
           </Body>
           <Right>
             <TouchableOpacity onPress={this.submit}>
-              <Text style={{
-                color: '#FFF'
-              }}>Save</Text>
+              <Icon
+                name="check"
+                size={25}
+                color="#fff"
+              />
             </TouchableOpacity>
           </Right>
         </Header>
