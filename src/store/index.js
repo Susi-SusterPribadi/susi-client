@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import uploadImage from '../reducers/uploadImage.reducer'
 import configTime from '../reducers/configTime.reducer'
 import getDataTime from '../reducers/getDataTime.reducer'
+import removeState from '../middlewares/removeState'
 
 const rootReducers = combineReducers({
   uploadImage,

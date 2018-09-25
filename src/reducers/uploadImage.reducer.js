@@ -34,6 +34,14 @@ export default uploadImage = ( state = initialStateUploadImage, action ) => {
         error: action.payload
       }
     }
+    case 'REMOVE_STATE': {
+      return {
+        data: [],
+        success: false,
+        loading: false,
+        error: null
+      }
+    }
     default: {
       return state
     }
