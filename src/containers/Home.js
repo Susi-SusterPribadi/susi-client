@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import gift, { GiftedChat, Bubble } from "react-native-gifted-chat"
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
-
-
+import PushConfig from './PushConfig'
+import PushNotification from 'react-native-push-notification'
 
 class Home extends Component {
   constructor(props) {
@@ -45,6 +45,17 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    //ini nih notifnya
+    PushNotification.cancelAllLocalNotifications()
+    PushNotification.localNotificationSchedule({
+      
+      message: "Susi", // isi messagenya disini
+      repeatType: "minute", // set aja mau per apa, year,month, week, day, hour , minute
+      date: new Date(), // ini waktunya
+      vibrate: true, // ini biar notifnya ada vibrate
+      vibration: 200, // ini besar vibrate nya
+      soundName: 'default', // ini ya you know lah
+    });
   }
 
   onSend(messages = []) {
@@ -87,6 +98,7 @@ class Home extends Component {
               />
             );
           }} />
+          <PushConfig/>
       </React.Fragment>
     );
   }
