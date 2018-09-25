@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import socketio from 'socket.io-client';
-
 import PushConfig from './PushConfig';
 import PushNotification from 'react-native-push-notification';
-import { socketUrl } from '../config';
+import { socketURL } from '../config';
 
 class Home extends Component {
   constructor(props) {
@@ -19,7 +17,7 @@ class Home extends Component {
 
   componentDidMount() {
     //ini nih notifnya
-    PushNotification.cancelAllLocalNotifications();
+    // PushNotification.cancelAllLocalNotifications();
     PushNotification.localNotificationSchedule({
       message: 'Susi', // isi messagenya disini
       repeatType: 'minute', // set aja mau per apa, year,month, week, day, hour , minute
@@ -53,7 +51,6 @@ class Home extends Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
-          onLongPress={this.try}
           user={{
             _id: 1
           }}
