@@ -148,7 +148,9 @@ class Setting extends Component {
               textAlign: 'center',
               fontSize: 40,
               marginLeft: '55%',
-              marginRight: 'auto'
+              marginRight: 'auto',
+              marginTop: 'auto',
+              marginBottom: 'auto'
             }}>Susi</Text>
           </Body>
           <Right>
