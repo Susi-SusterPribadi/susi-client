@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const options = {
   title: 'Options',
-  takePhotoButtonTitle: 'Take image with your camera',
-  chooseFromLibraryButtonTitle: 'Choose image from library',
+  takePhotoButtonTitle: 'Camera',
+  chooseFromLibraryButtonTitle: 'Gallery',
 }
 
 class CameraPicker extends Component {
@@ -82,20 +82,7 @@ class CameraPicker extends Component {
         formData: formData,
         auth: token
       })
-      
-      return (
-        this.props.dataUpload.uploadImage.loading ? 
-        <ProgressBarAndroid/> :
-        Alert.alert(
-          'Susi says',
-          'Image upload success',
-          [
-            {text: 'Cancel', onPress: () => this.props.navigation.navigate('Camera')},
-            {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-          ]
-        )
-      )
-
+      console.log('props loading uploadImage =>', this.props.dataUpload.uploadImage.loading)
     } catch(err) {
       console.log('error from camera picker ==>', err)
     }
@@ -121,14 +108,32 @@ class CameraPicker extends Component {
             />
             <Text>Choose Image</Text>
           </Button>
-          <Button onPress={this.uploadImage} style={{marginTop: 10}} block success> 
-            <Icon
-              name="upload"
-              size={30}
-              color="#fff"
-            />
-            <Text>Upload Image</Text>
-          </Button>
+          {
+            this.state.avatarSource ?
+            <Button onPress={this.uploadImage} style={{marginTop: 10}} block success>
+              {
+                this.props.dataUpload.uploadImage.loading ? 
+                <ProgressBarAndroid/> :
+                this.props.dataUpload.uploadImage.success ? 
+                Alert.alert(
+                  'Susi says',
+                  'Image upload success',
+                  [
+                    {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+                  ]
+                ) :
+                <Icon 
+                  name="upload"
+                  size={30}
+                  color="#FFF" 
+                />
+              }
+              {
+                this.props.dataUpload.uploadImage.error && Alert.alert('Error: ' + this.props.dataUpload.uploadImage.error)
+              }
+              <Text>Upload Image</Text>
+            </Button> : <Text></Text>
+          }
         </View>
       </View>
     )
