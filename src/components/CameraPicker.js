@@ -119,17 +119,6 @@ class CameraPicker extends Component {
                   'Susi says',
                   'Image upload success',
                   [
-                    {text: 'Cancel', onPress: () => {
-                      this.props.navigation.navigate('Camera')
-                      this.setState({
-                        avatarSource: null,
-                        pic: null,
-                        filename: null,
-                        type: null,
-                        uri: null,
-                        url: null
-                      })
-                    }},
                     {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
                   ]
                 ) :
@@ -138,6 +127,9 @@ class CameraPicker extends Component {
                   size={30}
                   color="#FFF" 
                 />
+              }
+              {
+                this.props.dataUpload.uploadImage.error && Alert.alert('Error: ' + this.props.dataUpload.uploadImage.error)
               }
               <Text>Upload Image</Text>
             </Button> : <Text></Text>
