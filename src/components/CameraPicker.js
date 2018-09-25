@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const options = {
   title: 'Options',
-  takePhotoButtonTitle: 'Take image with your camera',
-  chooseFromLibraryButtonTitle: 'Choose image from library',
+  takePhotoButtonTitle: 'Camera',
+  chooseFromLibraryButtonTitle: 'Gallery',
 }
 
 class CameraPicker extends Component {
@@ -83,20 +83,6 @@ class CameraPicker extends Component {
         auth: token
       })
       console.log('props loading uploadImage =>', this.props.dataUpload.uploadImage.loading)
-      
-      // return (
-      //   this.props.dataUpload.uploadImage.loading ? 
-      //   <ProgressBarAndroid/> :
-      //   Alert.alert(
-      //     'Susi says',
-      //     'Image upload success',
-      //     [
-      //       {text: 'Cancel', onPress: () => this.props.navigation.navigate('Camera')},
-      //       {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-      //     ]
-      //   )
-      // )
-
     } catch(err) {
       console.log('error from camera picker ==>', err)
     }
