@@ -47,15 +47,15 @@ class Home extends Component {
   componentDidMount() {
     //ini nih notifnya
     PushNotification.cancelAllLocalNotifications()
-    PushNotification.localNotificationSchedule({
+    // PushNotification.localNotificationSchedule({
       
-      message: "Susi", // isi messagenya disini
-      repeatType: "minute", // set aja mau per apa, year,month, week, day, hour , minute
-      date: new Date(), // ini waktunya
-      vibrate: true, // ini biar notifnya ada vibrate
-      vibration: 200, // ini besar vibrate nya
-      soundName: 'default', // ini ya you know lah
-    });
+    //   message: "Susi", // isi messagenya disini
+    //   repeatType: "minute", // set aja mau per apa, year,month, week, day, hour , minute
+    //   date: new Date(), // ini waktunya
+    //   vibrate: true, // ini biar notifnya ada vibrate
+    //   vibration: 200, // ini besar vibrate nya
+    //   soundName: 'default', // ini ya you know lah
+    // });
   }
 
   onSend(messages = []) {
