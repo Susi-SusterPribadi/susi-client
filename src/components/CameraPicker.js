@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-picker'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import uploadImage from '../actions/uploadImage.action'
 import { connect } from 'react-redux'
+import removeState from '../actions/RemoveState'
 
 const mapStateToProps = (state) => {
   return {
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     uploadingImage: (formData) => {
       dispatch(uploadImage(formData))
+    },
+    deleteState: () => {
+      dispatch(removeState())
     }
   }
 }
@@ -48,6 +52,10 @@ class CameraPicker extends Component {
       uri: null,
       url: null
     }
+  }
+
+  componentDidMount() {
+    this.props.deleteState()
   }
 
   showImg = () => {
@@ -114,14 +122,6 @@ class CameraPicker extends Component {
               {
                 this.props.dataUpload.uploadImage.loading ? 
                 <ProgressBarAndroid/> :
-                this.props.dataUpload.uploadImage.success ? 
-                Alert.alert(
-                  'Susi says',
-                  'Image upload success',
-                  [
-                    {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
-                  ]
-                ) :
                 <Icon 
                   name="upload"
                   size={30}
@@ -129,7 +129,17 @@ class CameraPicker extends Component {
                 />
               }
               {
-                this.props.dataUpload.uploadImage.error && Alert.alert('Error: ' + this.props.dataUpload.uploadImage.error)
+                this.props.dataUpload.uploadImage.success &&
+                Alert.alert(
+                  'Susi says',
+                  'Image upload success',
+                  [
+                    {text: 'OK', onPress: () => this.props.navigation.navigate('Home')}
+                  ]
+                )
+              }
+              {
+                this.props.dataUpload.uploadImage.error && Alert.alert('Error: ', this.props.dataUpload.uploadImage.error)
               }
               <Text>Upload Image</Text>
             </Button> : <Text></Text>
