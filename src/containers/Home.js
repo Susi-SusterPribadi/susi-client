@@ -12,20 +12,19 @@ class Home extends Component {
     this.state = {
       messages: []
     };
-    this.socket = socketio(socketUrl);
+    this.socket = socketio(socketURL);
   }
 
   componentDidMount() {
-    //ini nih notifnya
-    // PushNotification.cancelAllLocalNotifications();
-    PushNotification.localNotificationSchedule({
-      message: 'Susi', // isi messagenya disini
-      repeatType: 'minute', // set aja mau per apa, year,month, week, day, hour , minute
-      date: new Date(), // ini waktunya
-      vibrate: true, // ini biar notifnya ada vibrate
-      vibration: 200, // ini besar vibrate nya
-      soundName: 'default' // ini ya you know lah
-    });
+    PushNotification.cancelAllLocalNotifications();
+    // PushNotification.localNotificationSchedule({
+    //   message: 'Susi', // isi messagenya disini
+    //   repeatType: 'minute', // set aja mau per apa, year,month, week, day, hour , minute
+    //   date: new Date(), // ini waktunya
+    //   vibrate: true, // ini biar notifnya ada vibrate
+    //   vibration: 200, // ini besar vibrate nya
+    //   soundName: 'default' // ini ya you know lah
+    // });
     const self = this;
     const { messages } = self.state;
     this.socket.on('message', messages => {
