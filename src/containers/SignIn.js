@@ -43,6 +43,8 @@ class SignIn extends Component {
   signin = () => {
     console.log('ini email', this.state.email);
     console.log('ini email', this.state.password);
+    console.log('ini base url',baseURL);
+    
 
     axios.post(baseURL+ 'auth', {
       email: this.state.email,
