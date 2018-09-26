@@ -28,6 +28,7 @@ import ProfileScreen from './src/containers/Profile'
 import store from './src/store/index'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons'
+import ava from './assets/img/ava.png'
 
 const Opendrawer = (props) => {
   return (
@@ -119,7 +120,7 @@ const AppDrawerNavigator = createDrawerNavigator({
     contentComponent: (props) => (
       <View style={styles.drawercontainer}>
         <View style={styles.drawer}>
-          <Image source={{ uri: 'https://i.pinimg.com/564x/10/3c/09/103c097872200038dd538c8f7e56403e.jpg' }} style={styles.avatar} />
+          <Image source={ava} style={styles.avatar} />
           <Text style={styles.username}>{name}</Text>
         </View>
         <DrawerItems activeBackgroundColor="#5FD68F" activeTintColor='#007E33' inactiveTintColor="white" {...props} />
