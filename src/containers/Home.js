@@ -1,54 +1,26 @@
 import React, { Component } from 'react';
-import { 
-  Platform, 
-  StyleSheet, 
-  Text, 
-  View, 
-  TouchableOpacity, 
-  KeyboardAvoidingView, 
-  Dimensions 
-} from 'react-native';
-import gift, { GiftedChat, Bubble } from "react-native-gifted-chat"
-import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import PushConfig from './PushConfig'
-import PushNotification from 'react-native-push-notification'
+import { StyleSheet } from 'react-native';
+
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import socketio from 'socket.io-client';
+import PushConfig from './PushConfig';
+import PushNotification from 'react-native-push-notification';
+import { socketUrl } from '../config';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: [
-        {
-          _id: Math.round(Math.random() * 1000000),
-          text: '',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-          },
-          image: 'http://www.pokerpost.fr/wp-content/uploads/2017/12/iStock-604371970-1.jpg',
-          sent: true,
-          received: true,
-        },
-        {
-          _id: Math.round(Math.random() * 1000000),
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-      ]
+      messages: []
     };
+    this.socket = socketio(socketUrl);
   }
 
   componentDidMount() {
     //ini nih notifnya
-    PushNotification.cancelAllLocalNotifications()// ini buat matiin notif
+    PushNotification.cancelAllLocalNotifications(); // ini buat matiin notif
     // PushNotification.localNotificationSchedule({
-      
+
     //   message: "Susi", // isi messagenya disini
     //   repeatType: "minute", // set aja mau per apa, year,month, week, day, hour , minute
     //   date: new Date(), // ini waktunya
@@ -59,18 +31,23 @@ class Home extends Component {
   }
 
   onSend(messages = []) {
+    this.socket.emit('message', messages);
     this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }))
+      messages: GiftedChat.append(previousState.messages, messages)
+    }));
   }
-
-  try = () => {
-    console.log('masuk long press');
-
-  }
-
   cam = () => {
-    this.props.navigation.navigate('Camera')
+    this.props.navigation.navigate('Camera');
+  };
+
+  componentDidMount() {
+    const self = this;
+    const { messages } = self.state;
+    this.socket.on('message', messages => {
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, messages)
+      }));
+    });
   }
 
   render() {
@@ -81,7 +58,7 @@ class Home extends Component {
           onSend={messages => this.onSend(messages)}
           onLongPress={this.try}
           user={{
-            _id: 1,
+            _id: 1
           }}
           renderBubble={props => {
             return (
@@ -89,16 +66,17 @@ class Home extends Component {
                 {...props}
                 wrapperStyle={{
                   right: {
-                    backgroundColor: '#15BE59',
+                    backgroundColor: '#15BE59'
                   },
                   left: {
-                    backgroundColor: 'white',
-                  },
+                    backgroundColor: 'white'
+                  }
                 }}
               />
             );
-          }} />
-          <PushConfig/>
+          }}
+        />
+        <PushConfig />
       </React.Fragment>
     );
   }
@@ -118,7 +96,8 @@ const styles = StyleSheet.create({
   },
   cambox: {
     backgroundColor: 'blue',
-    marginTop: '50%'  }
-})
+    marginTop: '50%'
+  }
+});
 
-export default Home
+export default Home;
