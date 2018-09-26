@@ -26,6 +26,10 @@ class Prescription extends Component {
     };
   }
 
+  getPrescription  = () => {
+
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -36,12 +40,9 @@ class Prescription extends Component {
             </Button>
           </Left>
           <Body>
-            <Text style={styles.textHeader}>Susi</Text>
+            <Text style={styles.textHeader}>Prescription</Text>
           </Body>
         </Header>
-        <View style={styles.titlebox}>
-          <Text style={styles.title}>Prescription</Text>
-        </View>
         <ScrollView>
           <View style={styles.medicine}>
             <Text style={styles.medname}>Dexamethason</Text>
@@ -129,12 +130,13 @@ const styles = StyleSheet.create({
     color: 'blue'
   },
   textHeader: {
-    fontFamily: 'sacramento',
     color: 'white',
     textAlign: 'center',
-    fontSize: 40,
-    marginLeft: '20%',
-    marginRight: 'auto'
+    fontSize: 23,
+    marginLeft: '10%',
+    marginRight: '30%',
+    marginTop: 'auto',
+    marginBottom: 'auto',
   }
 })
 

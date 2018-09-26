@@ -139,7 +139,7 @@ class Setting extends Component {
             </TouchableOpacity>
           </Left>
           <Body>
-            <Title>Setting</Title>
+            <Text style={styles.textHeader}>Setting</Text>
           </Body>
           <Right>
             <TouchableOpacity onPress={this.submit}>
@@ -248,6 +248,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     borderRadius: 30
   },
+  textHeader: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 23,
+    marginLeft: '50%',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Setting);

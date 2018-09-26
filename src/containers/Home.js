@@ -46,7 +46,7 @@ class Home extends Component {
 
   componentDidMount() {
     //ini nih notifnya
-    PushNotification.cancelAllLocalNotifications()
+    PushNotification.cancelAllLocalNotifications()// ini buat matiin notif
     // PushNotification.localNotificationSchedule({
       
     //   message: "Susi", // isi messagenya disini

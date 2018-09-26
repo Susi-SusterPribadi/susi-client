@@ -70,11 +70,11 @@ class Profile extends Component {
           </TouchableOpacity>
             
             <View style={styles.divider}>
-              <TouchableOpacity style={styles.editbutton}>
+              {/* <TouchableOpacity style={styles.editbutton}>
                 <Text style={styles.buttontext}>
                   EDIT PROFILE
               </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={styles.box}>
               <Image source={ava} style={styles.avatarbox} />
