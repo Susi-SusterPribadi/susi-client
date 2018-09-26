@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import socketio from 'socket.io-client';
 import PushConfig from './PushConfig';
 import PushNotification from 'react-native-push-notification';
-import { socketURL } from '../config';
+import { socketUrl } from '../config';
 
 class Home extends Component {
   constructor(props) {
@@ -12,17 +13,14 @@ class Home extends Component {
     this.state = {
       messages: []
     };
-    this.socket = socketio(socketURL);
+    this.socket = socketio(socketUrl);
   }
 
   componentDidMount() {
-<<<<<<< HEAD
     //ini nih notifnya
-<<<<<<< HEAD
-<<<<<<< HEAD
-    PushNotification.cancelAllLocalNotifications()// ini buat matiin notif
+    PushNotification.cancelAllLocalNotifications(); // ini buat matiin notif
     // PushNotification.localNotificationSchedule({
-      
+
     //   message: "Susi", // isi messagenya disini
     //   repeatType: "minute", // set aja mau per apa, year,month, week, day, hour , minute
     //   date: new Date(), // ini waktunya
@@ -30,41 +28,6 @@ class Home extends Component {
     //   vibration: 200, // ini besar vibrate nya
     //   soundName: 'default', // ini ya you know lah
     // });
-=======
-    PushNotification.cancelAllLocalNotifications();
-=======
-    // PushNotification.cancelAllLocalNotifications();
->>>>>>> implement socket client for chats
-    PushNotification.localNotificationSchedule({
-      message: 'Susi', // isi messagenya disini
-      repeatType: 'minute', // set aja mau per apa, year,month, week, day, hour , minute
-      date: new Date(), // ini waktunya
-      vibrate: true, // ini biar notifnya ada vibrate
-      vibration: 200, // ini besar vibrate nya
-      soundName: 'default' // ini ya you know lah
-    });
-<<<<<<< HEAD
->>>>>>> chats
-=======
-=======
-    PushNotification.cancelAllLocalNotifications();
-    // PushNotification.localNotificationSchedule({
-    //   message: 'Susi', // isi messagenya disini
-    //   repeatType: 'minute', // set aja mau per apa, year,month, week, day, hour , minute
-    //   date: new Date(), // ini waktunya
-    //   vibrate: true, // ini biar notifnya ada vibrate
-    //   vibration: 200, // ini besar vibrate nya
-    //   soundName: 'default' // ini ya you know lah
-    // });
->>>>>>> fix chats
-    const self = this;
-    const { messages } = self.state;
-    this.socket.on('message', messages => {
-      this.setState(previousState => ({
-        messages: GiftedChat.append(previousState.messages, messages)
-      }));
-    });
->>>>>>> integrate chats
   }
 
   onSend(messages = []) {
@@ -77,12 +40,23 @@ class Home extends Component {
     this.props.navigation.navigate('Camera');
   };
 
+  componentDidMount() {
+    const self = this;
+    const { messages } = self.state;
+    this.socket.on('message', messages => {
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, messages)
+      }));
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
         <GiftedChat
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
+          onLongPress={this.try}
           user={{
             _id: 1
           }}
